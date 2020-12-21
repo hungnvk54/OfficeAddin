@@ -13,5 +13,11 @@ namespace BocBang.Common
         {
             MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
+
+        public static DialogResult CreateConfirmBoxWithTwoButton(
+            string message, string caption)
+        {
+            return MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+        }
     }
 }

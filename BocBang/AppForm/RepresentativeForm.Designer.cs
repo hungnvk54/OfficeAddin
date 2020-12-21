@@ -35,73 +35,41 @@ namespace BocBang.AppForm
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RepresentativeForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.TB_Search = new System.Windows.Forms.TextBox();
             this.DGV_RepresentativeList = new System.Windows.Forms.DataGridView();
             this.Representative_Order = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Representative_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Representative_Duty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Representative_Term = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.RB_Duty = new System.Windows.Forms.RadioButton();
+            this.RB_Name = new System.Windows.Forms.RadioButton();
+            this.label1 = new System.Windows.Forms.Label();
+            this.TB_Search = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_RepresentativeList)).BeginInit();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.DGV_RepresentativeList, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(6);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 58F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(825, 554);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1238, 866);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 133F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.TB_Search, 1, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(4, 4);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(817, 29);
-            this.tableLayoutPanel2.TabIndex = 0;
-            this.tableLayoutPanel2.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel2_Paint);
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 6);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 17);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Tìm kiếm";
-            // 
-            // TB_Search
-            // 
-            this.TB_Search.Location = new System.Drawing.Point(137, 4);
-            this.TB_Search.Margin = new System.Windows.Forms.Padding(4);
-            this.TB_Search.Name = "TB_Search";
-            this.TB_Search.Size = new System.Drawing.Size(421, 22);
-            this.TB_Search.TabIndex = 1;
-            this.TB_Search.TextChanged += new System.EventHandler(this.TB_Search_TextChanged);
             // 
             // DGV_RepresentativeList
             // 
@@ -116,22 +84,24 @@ namespace BocBang.AppForm
             this.Representative_Duty,
             this.Representative_Term});
             this.DGV_RepresentativeList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DGV_RepresentativeList.Location = new System.Drawing.Point(4, 41);
-            this.DGV_RepresentativeList.Margin = new System.Windows.Forms.Padding(4);
+            this.DGV_RepresentativeList.Location = new System.Drawing.Point(6, 64);
+            this.DGV_RepresentativeList.Margin = new System.Windows.Forms.Padding(6);
+            this.DGV_RepresentativeList.MultiSelect = false;
             this.DGV_RepresentativeList.Name = "DGV_RepresentativeList";
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DGV_RepresentativeList.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.DGV_RepresentativeList.RowHeadersVisible = false;
             this.DGV_RepresentativeList.RowHeadersWidth = 51;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             this.DGV_RepresentativeList.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.DGV_RepresentativeList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DGV_RepresentativeList.Size = new System.Drawing.Size(817, 509);
+            this.DGV_RepresentativeList.Size = new System.Drawing.Size(1226, 796);
             this.DGV_RepresentativeList.TabIndex = 1;
             this.DGV_RepresentativeList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.On_Representative_Selection);
             // 
@@ -181,19 +151,92 @@ namespace BocBang.AppForm
             this.Representative_Term.ReadOnly = true;
             this.Representative_Term.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Controls.Add(this.panel1, 0, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(6, 6);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(6);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1226, 45);
+            this.tableLayoutPanel2.TabIndex = 0;
+            this.tableLayoutPanel2.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel2_Paint);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.RB_Duty);
+            this.panel1.Controls.Add(this.RB_Name);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.TB_Search);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1220, 39);
+            this.panel1.TabIndex = 3;
+            // 
+            // RB_Duty
+            // 
+            this.RB_Duty.AutoSize = true;
+            this.RB_Duty.Location = new System.Drawing.Point(737, 4);
+            this.RB_Duty.Name = "RB_Duty";
+            this.RB_Duty.Size = new System.Drawing.Size(106, 29);
+            this.RB_Duty.TabIndex = 4;
+            this.RB_Duty.Text = "Chức vụ";
+            this.RB_Duty.UseVisualStyleBackColor = true;
+            // 
+            // RB_Name
+            // 
+            this.RB_Name.AutoSize = true;
+            this.RB_Name.Checked = true;
+            this.RB_Name.Location = new System.Drawing.Point(645, 4);
+            this.RB_Name.Name = "RB_Name";
+            this.RB_Name.Size = new System.Drawing.Size(68, 29);
+            this.RB_Name.TabIndex = 3;
+            this.RB_Name.TabStop = true;
+            this.RB_Name.Text = "Tên";
+            this.RB_Name.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(14, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(91, 25);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Tìm kiếm";
+            // 
+            // TB_Search
+            // 
+            this.TB_Search.Location = new System.Drawing.Point(134, 4);
+            this.TB_Search.Margin = new System.Windows.Forms.Padding(6);
+            this.TB_Search.Name = "TB_Search";
+            this.TB_Search.Size = new System.Drawing.Size(449, 30);
+            this.TB_Search.TabIndex = 1;
+            this.TB_Search.TextChanged += new System.EventHandler(this.TB_Search_TextChanged);
+            // 
             // RepresentativeForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(825, 554);
+            this.ClientSize = new System.Drawing.Size(1238, 866);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "RepresentativeForm";
             this.Text = "Danh sách Đại biểu";
+            this.Load += new System.EventHandler(this.OnFormLoad);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_RepresentativeList)).EndInit();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -202,12 +245,15 @@ namespace BocBang.AppForm
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox TB_Search;
         private System.Windows.Forms.DataGridView DGV_RepresentativeList;
         private System.Windows.Forms.DataGridViewTextBoxColumn Representative_Order;
         private System.Windows.Forms.DataGridViewTextBoxColumn Representative_Name;
         private System.Windows.Forms.DataGridViewTextBoxColumn Representative_Duty;
         private System.Windows.Forms.DataGridViewTextBoxColumn Representative_Term;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.RadioButton RB_Duty;
+        private System.Windows.Forms.RadioButton RB_Name;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox TB_Search;
     }
 }

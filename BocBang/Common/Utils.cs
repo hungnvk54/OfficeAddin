@@ -143,5 +143,21 @@ namespace BocBang
 
             return dst;
         }
+    
+        public static string FormatDateTime(string dateTime)
+        {
+            string[] patterns = { "MM-dd-yyyy", "dd-MM-yyyy", "yyyy-MM-dd", "yyyy-MMM-dd" };
+
+            foreach( string pattern in patterns)
+            {
+                DateTime formatedDate;
+                if (DateTime.TryParseExact(dateTime,pattern,null, System.Globalization.DateTimeStyles.None, out formatedDate))
+                {
+                    return formatedDate.ToString("dd/MM/yyyy");
+                }
+            }
+
+            return dateTime;
+        }
     }
 }

@@ -48,22 +48,25 @@ namespace BocBang
             this.G_Reperentative = this.Factory.CreateRibbonGroup();
             this.Btn_Insert = this.Factory.CreateRibbonButton();
             this.Btn_Spit = this.Factory.CreateRibbonButton();
+            this.group3 = this.Factory.CreateRibbonGroup();
+            this.Btn_Save = this.Factory.CreateRibbonButton();
             this.G_3G = this.Factory.CreateRibbonGroup();
             this.Btn_Export = this.Factory.CreateRibbonButton();
             this.Btn_Undo = this.Factory.CreateRibbonButton();
             this.group2 = this.Factory.CreateRibbonGroup();
             this.Btn_FormatRepresentative = this.Factory.CreateRibbonButton();
             this.button2 = this.Factory.CreateRibbonButton();
-            this.group3 = this.Factory.CreateRibbonGroup();
-            this.Btn_Save = this.Factory.CreateRibbonButton();
+            this.group4 = this.Factory.CreateRibbonGroup();
+            this.button1 = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.G_Control.SuspendLayout();
             this.G_Session.SuspendLayout();
             this.group1.SuspendLayout();
             this.G_Reperentative.SuspendLayout();
+            this.group3.SuspendLayout();
             this.G_3G.SuspendLayout();
             this.group2.SuspendLayout();
-            this.group3.SuspendLayout();
+            this.group4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab1
@@ -76,6 +79,7 @@ namespace BocBang
             this.tab1.Groups.Add(this.group3);
             this.tab1.Groups.Add(this.G_3G);
             this.tab1.Groups.Add(this.group2);
+            this.tab1.Groups.Add(this.group4);
             this.tab1.Label = "Bóc Băng";
             this.tab1.Name = "tab1";
             // 
@@ -186,6 +190,21 @@ namespace BocBang
             this.Btn_Spit.ShowImage = true;
             this.Btn_Spit.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Btn_Spit_Click);
             // 
+            // group3
+            // 
+            this.group3.Items.Add(this.Btn_Save);
+            this.group3.Label = "Tệp";
+            this.group3.Name = "group3";
+            // 
+            // Btn_Save
+            // 
+            this.Btn_Save.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.Btn_Save.Image = global::BocBang.Properties.Resources.save;
+            this.Btn_Save.Label = "Lưu";
+            this.Btn_Save.Name = "Btn_Save";
+            this.Btn_Save.ShowImage = true;
+            this.Btn_Save.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Btn_Save_Click);
+            // 
             // G_3G
             // 
             this.G_3G.Items.Add(this.Btn_Export);
@@ -235,21 +254,19 @@ namespace BocBang
             this.button2.Label = "Nội dung";
             this.button2.Name = "button2";
             this.button2.ShowImage = true;
+            this.button2.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Btn_ContentFormat_Click);
             // 
-            // group3
+            // group4
             // 
-            this.group3.Items.Add(this.Btn_Save);
-            this.group3.Label = "Tệp";
-            this.group3.Name = "group3";
+            this.group4.Items.Add(this.button1);
+            this.group4.Label = "group4";
+            this.group4.Name = "group4";
             // 
-            // Btn_Save
+            // button1
             // 
-            this.Btn_Save.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.Btn_Save.Image = global::BocBang.Properties.Resources.save;
-            this.Btn_Save.Label = "Lưu";
-            this.Btn_Save.Name = "Btn_Save";
-            this.Btn_Save.ShowImage = true;
-            this.Btn_Save.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Btn_Save_Click);
+            this.button1.Label = "button1";
+            this.button1.Name = "button1";
+            this.button1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button1_Click);
             // 
             // BocBang
             // 
@@ -267,12 +284,14 @@ namespace BocBang
             this.group1.PerformLayout();
             this.G_Reperentative.ResumeLayout(false);
             this.G_Reperentative.PerformLayout();
+            this.group3.ResumeLayout(false);
+            this.group3.PerformLayout();
             this.G_3G.ResumeLayout(false);
             this.G_3G.PerformLayout();
             this.group2.ResumeLayout(false);
             this.group2.PerformLayout();
-            this.group3.ResumeLayout(false);
-            this.group3.PerformLayout();
+            this.group4.ResumeLayout(false);
+            this.group4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -300,6 +319,8 @@ namespace BocBang
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group3;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton Btn_Save;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton Btn_SessionInfo;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup group4;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button1;
     }
 
     partial class ThisRibbonCollection

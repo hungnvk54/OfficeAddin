@@ -5,6 +5,7 @@ using System.Text;
 using Word = Microsoft.Office.Interop.Word;
 using BocBang.DataMessage;
 using System.Diagnostics;
+using System.IO;
 
 namespace BocBang.Common
 {
@@ -153,7 +154,7 @@ namespace BocBang.Common
             style.Font.Color = Word.WdColor.wdColorBlue;
             style.Font.Bold = -1;
             style.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
-            style.ParagraphFormat.SpaceBefore = 12;
+            style.ParagraphFormat.SpaceBefore = 6;
         }
 
         /// <summary>
@@ -190,7 +191,7 @@ namespace BocBang.Common
             selection.TypeParagraph();
 
             ///Buổi sáng ngày 07/12/2020
-            string meetingDate = string.Format("Buổi {0} ngày {1}", sessionEntity.meetingEntity.name, sessionEntity.meetingDay);
+            string meetingDate = string.Format("Buổi {0} ngày {1}", sessionEntity.meetingEntity.name, Utils.FormatDateTime(sessionEntity.meetingDay));
             selection.set_Style(document.Styles[Constants.MeetingTimeTitleStyle]);
             selection.TypeText(meetingDate);
             selection.TypeParagraph();
@@ -211,6 +212,7 @@ namespace BocBang.Common
                 selection.set_Style(document.Styles[Constants.MeetingContentTitleStyle]);
                 selection.TypeText(contentControl);
                 selection.TypeParagraph();
+                selection.set_Style(document.Styles[Constants.ContentStyle]);
             } else
             {
                 ///Đại biểu chủ trì 2 chủ 
@@ -250,16 +252,57 @@ namespace BocBang.Common
                     selection.TypeParagraph();
                 }
 
-                selection.set_Style(document.Styles[Constants.ContentStyle]);
                 foreach ( string content in documentParagraph.contents)
                 {
                     if (!content.Trim().Equals(""))
                     {
+                        selection.set_Style(document.Styles[Constants.ContentStyle]);
                         selection.TypeText(content.Trim());
                         selection.TypeParagraph();
                     }
                 }
             }
+        }
+
+        public static void SaveNewSessionDocument(
+            SessionsEntity sessionsEntity, Word.Document document)
+        {
+            ///Combine path: ConfigurePath/Sang_Datetime_SessionId
+            string name = "Bienban.docx";
+            string folderName = Utils.fromUtf8ToAscii(sessionsEntity.meetingEntity.name) + "_" +
+                sessionsEntity.meetingDay + "_" + sessionsEntity.idSession;
+            string[] combinePath = { AppsSettings.GetInstance().DataDir, folderName };
+            string[] combineFullPath = { AppsSettings.GetInstance().DataDir, folderName, name };
+
+            if (!Directory.Exists(Path.Combine(combinePath)))
+            {
+                Directory.CreateDirectory(Path.Combine(combinePath));
+            }
+            string fillFileName = Path.Combine(combineFullPath);
+            ///0.Save as other document
+            document.SaveAs2(fillFileName);
+            ///1. Remove all document
+            TextHelpers.RemoveAllContent(document);
+        }
+
+        public static void SaveRepresentativeDocument(
+            SessionsEntity sessionsEntity, Word.Document document, string representaiveName
+            )
+        {
+            ///Combine path: ConfigurePath/Sang_Datetime_SessionId
+            string name = representaiveName + ".docx";
+            string folderName = Utils.fromUtf8ToAscii(sessionsEntity.meetingEntity.name) + "_" +
+                sessionsEntity.meetingDay + "_" + sessionsEntity.idSession;
+            string[] combinePath = { AppsSettings.GetInstance().DataDir, folderName };
+            string[] combineFullPath = { AppsSettings.GetInstance().DataDir, folderName, name };
+
+            if (!Directory.Exists(Path.Combine(combinePath)))
+            {
+                Directory.CreateDirectory(Path.Combine(combinePath));
+            }
+            string fillFileName = Path.Combine(combineFullPath);
+            ///0.Save as other document
+            document.SaveAs2(Path.Combine(combinePath));
         }
     }
 }

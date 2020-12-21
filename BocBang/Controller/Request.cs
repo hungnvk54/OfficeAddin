@@ -50,165 +50,10 @@ namespace BocBang
             return request;
         }
 
-        public static bool RequestChangeSessionStatus(string sessionId, int isLive)
-        {
-            try
-            {
-                bool requestResult = false;
-                // Create a request using a URL that can receive a post.
-                string uri = string.Format("{0}/sessions/updateStatusByIdSession", AppsSettings.GetInstance().ApiUrl);
-                Debug.WriteLine(String.Format("Send change system status {0} to {1}", isLive, uri));
-                WebRequest request = GetWebRequester(uri, AppsSettings.GetInstance().UserInfo.Authorization);
-                // Set the Method property of the request to POST.
-                request.Method = "POST";
-                request.ContentType = "application/json; charset=UTF-8";
-
-                // Create POST data and convert it to a byte array.
-                string postData = String.Format("{{\"idSession\": {0}, \"status\": 1, \"isLive\": {1} }}", sessionId, isLive);
-                byte[] byteArray = Encoding.UTF8.GetBytes(postData);
-
-                // Set the ContentLength property of the WebRequest.
-                request.ContentLength = byteArray.Length;
-
-                // Get the request stream.
-                Stream dataStream = request.GetRequestStream();
-                // Write the data to the request stream.
-                dataStream.Write(byteArray, 0, byteArray.Length);
-                // Close the Stream object.
-                dataStream.Close();
-
-                // Get the response.
-                WebResponse response = request.GetResponse();
-                // Display the status.
-                Console.WriteLine(((HttpWebResponse)response).StatusDescription);
-
-                // Get the stream containing content returned by the server.
-                // The using block ensures the stream is automatically closed.
-                using (dataStream = response.GetResponseStream())
-                {
-                    // Open the stream using a StreamReader for easy access.
-                    StreamReader reader = new StreamReader(dataStream);
-                    // Read the content.
-                    string responseFromServer = reader.ReadToEnd();
-                    // Display the content.
-                    Debug.WriteLine(responseFromServer);
-                    try
-                    {
-                        BackEndResponseMessage RspMsg = JsonConvert.DeserializeObject<BackEndResponseMessage>(responseFromServer);
-                        if (RspMsg.status.Equals("1"))
-                        {
-                            requestResult = true;
-                        }
-                        else
-                        {
-                            requestResult = false;
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine(e);
-                        requestResult = false;
-                    }
-                }
-
-                // Close the response.
-                response.Close();
-                return requestResult;
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(String.Format("{0}", e));
-                return false;
-            }
-
-        }
 
         private static string CreateFormDataBoundary()
         {
             return "---------------------------" + DateTime.Now.Ticks.ToString("x");
-        }
-        public static bool RequestCreateParentAudio(string sessionId, string fileName)
-        {
-            try
-            {
-                bool requestResult = true;
-                string FormDataTemplate = "--{0}\r\nContent-Disposition: form-data; name=\"{1}\"\r\n\r\n{2}\r\n";
-                // Create a request using a URL that can receive a post.
-                string uri = string.Format("{0}/transcript/saveAudioTranslateOnline", AppsSettings.GetInstance().ApiUrl);
-                WebRequest request = GetWebRequester(uri, AppsSettings.GetInstance().UserInfo.Authorization);
-                // Set the Method property of the request to POST.
-                string boundary = CreateFormDataBoundary();
-                request.Method = "POST";
-                request.ContentType = "multipart/form-data; boundary=" + boundary;
-
-                // Create POST data and convert it to a byte array.
-                string postData2 = String.Format("{{\"transcript\": {{}},\"idSession\": {0}, \"fileNameAudio\": \"{1}\",\"type\":\"0\",\"startTimeSplit\": 0}}", sessionId, fileName);
-
-                // Get the request stream.
-                Stream dataStream = request.GetRequestStream();
-                // Write the data to the request stream.
-
-                string item = String.Format(FormDataTemplate, boundary, "translateOnlineInfo", postData2);
-                byte[] itemBytes = Encoding.UTF8.GetBytes(item);
-                dataStream.Write(itemBytes, 0, itemBytes.Length);
-
-
-                string HeaderTemplate = "--{0}\r\nContent-Disposition: form-data; name=\"{1}\"; filename=\"{2}\"\r\nContent-Type: {3}\r\n\r\n";
-                string header = String.Format(HeaderTemplate, boundary, "file", fileName, "audio/wav");
-                byte[] headerbytes = Encoding.UTF8.GetBytes(header);
-                dataStream.Write(headerbytes, 0, headerbytes.Length);
-
-                byte[] newlineBytes = Encoding.UTF8.GetBytes("\r\n");
-                dataStream.Write(newlineBytes, 0, newlineBytes.Length);
-
-                byte[] endBytes = Encoding.UTF8.GetBytes("--" + boundary + "--");
-                dataStream.Write(endBytes, 0, endBytes.Length);
-                // Close the Stream object.
-                dataStream.Close();
-
-                // Get the response.
-                WebResponse response = request.GetResponse();
-                // Display the status.
-                Debug.WriteLine(((HttpWebResponse)response).StatusDescription);
-
-                // Get the stream containing content returned by the server.
-                // The using block ensures the stream is automatically closed.
-                using (dataStream = response.GetResponseStream())
-                {
-                    // Open the stream using a StreamReader for easy access.
-                    StreamReader reader = new StreamReader(dataStream);
-                    // Read the content.
-                    string responseFromServer = reader.ReadToEnd();
-                    // Display the content.
-                    Debug.WriteLine(responseFromServer);
-                    try { 
-                        BackEndResponseMessage RspMsg = JsonConvert.DeserializeObject<BackEndResponseMessage>(responseFromServer);
-                        if (RspMsg.status.Equals("1"))
-                        {
-                            requestResult = true;
-                        }
-                        else
-                        {
-                            requestResult = false;
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine(e);
-                        requestResult = false;
-                    }
-                }
-
-                // Close the response.
-                response.Close();
-
-                return requestResult;
-            } catch(Exception e)
-            {
-                Debug.WriteLine(String.Format("{0}", e));
-                return false;
-            }
-            
         }
 
         public static UserInfoMessage RequestLogin(string username, string password)
@@ -279,183 +124,6 @@ namespace BocBang
             }
 
         }
-
-        public static bool UploadFileToServer(string sessionId, string fileName, double startSplit)
-        {
-            try
-            {
-                bool requestResult = true;
-                string FormDataTemplate = "--{0}\r\nContent-Disposition: form-data; name=\"{1}\"\r\n\r\n{2}\r\n";
-                // Create a request using a URL that can receive a post.
-                string uri = string.Format("{0}/fileAudio/uploadFileToTranslate", AppsSettings.GetInstance().ApiUrl);
-                WebRequest request = GetWebRequester(uri, AppsSettings.GetInstance().UserInfo.Authorization);
-                // Set the Method property of the request to POST.
-                string boundary = CreateFormDataBoundary();
-                request.Method = "POST";
-                request.ContentType = "multipart/form-data; boundary=" + boundary;
-
-                // Get the request stream.
-                Stream dataStream = request.GetRequestStream();
-                // Write the data to the request stream.
-
-                string item = String.Format(FormDataTemplate, boundary, "idSession", sessionId);
-                byte[] itemBytes = Encoding.UTF8.GetBytes(item);
-                dataStream.Write(itemBytes, 0, itemBytes.Length);
-
-
-                string HeaderTemplate = "--{0}\r\nContent-Disposition: form-data; name=\"{1}\"; filename=\"{2}\"\r\nContent-Type: {3}\r\n\r\n";
-                string header = String.Format(HeaderTemplate, boundary, "files", Path.GetFileName(fileName), "audio/wav");
-                byte[] headerbytes = Encoding.UTF8.GetBytes(header);
-                dataStream.Write(headerbytes, 0, headerbytes.Length);
-
-                using (FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
-                {
-                    byte[] buffer = new byte[1024];
-                    int bytesRead = 0;
-                    while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0)
-                    {
-                        dataStream.Write(buffer, 0, bytesRead);
-                    }
-                    fileStream.Close();
-                }
-
-                byte[] newlineBytes = Encoding.UTF8.GetBytes("\r\n");
-                dataStream.Write(newlineBytes, 0, newlineBytes.Length);
-
-                byte[] endBytes = Encoding.UTF8.GetBytes("--" + boundary + "--");
-                dataStream.Write(endBytes, 0, endBytes.Length);
-                // Close the Stream object.
-                dataStream.Close();
-
-                // Get the response.
-                WebResponse response = request.GetResponse();
-                // Display the status.
-                Debug.WriteLine(((HttpWebResponse)response).StatusDescription);
-
-                // Get the stream containing content returned by the server.
-                // The using block ensures the stream is automatically closed.
-                using (dataStream = response.GetResponseStream())
-                {
-                    // Open the stream using a StreamReader for easy access.
-                    StreamReader reader = new StreamReader(dataStream);
-                    // Read the content.
-                    string responseFromServer = reader.ReadToEnd();
-                    // Display the content.
-                    Debug.WriteLine(responseFromServer);
-                    try
-                    {
-                        BackEndResponseMessage RspMsg = JsonConvert.DeserializeObject<BackEndResponseMessage>(responseFromServer);
-                        if (RspMsg.status.Equals("1"))
-                        {
-                            requestResult = true;
-                        }
-                        else
-                        {
-                            requestResult = false;
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine(e);
-                        requestResult = false;
-                    }
-                }
-
-                // Close the response.
-                response.Close();
-
-                return requestResult;
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(String.Format("{0}", e));
-                return false;
-            }
-
-        }
-
-
-        public static bool CreateOfflineSession(string sessionId, string fileName)
-        {
-            try
-            {
-                bool requestResult = true;
-                string FormDataTemplate = "--{0}\r\nContent-Disposition: form-data; name=\"{1}\"\r\n\r\n{2}\r\n";
-                // Create a request using a URL that can receive a post.
-                string uri = string.Format("{0}/sessions/saveOfflineParrent", AppsSettings.GetInstance().ApiUrl);
-                WebRequest request = GetWebRequester(uri, AppsSettings.GetInstance().UserInfo.Authorization);
-                // Set the Method property of the request to POST.
-                string boundary = CreateFormDataBoundary();
-                request.Method = "POST";
-                request.ContentType = "multipart/form-data; boundary=" + boundary;
-
-                // Get the request stream.
-                Stream dataStream = request.GetRequestStream();
-                // Write the data to the request stream.
-
-                string item = String.Format(FormDataTemplate, boundary, "idSession", sessionId);
-                byte[] itemBytes = Encoding.UTF8.GetBytes(item);
-                dataStream.Write(itemBytes, 0, itemBytes.Length);
-
-                item = String.Format(FormDataTemplate, boundary, "parentName", fileName);
-                itemBytes = Encoding.UTF8.GetBytes(item);
-                dataStream.Write(itemBytes, 0, itemBytes.Length);
-
-                //byte[] newlineBytes = Encoding.UTF8.GetBytes("\r\n");
-                //dataStream.Write(newlineBytes, 0, newlineBytes.Length);
-
-                byte[] endBytes = Encoding.UTF8.GetBytes("--" + boundary + "--");
-                dataStream.Write(endBytes, 0, endBytes.Length);
-                // Close the Stream object.
-                dataStream.Close();
-
-                // Get the response.
-                WebResponse response = request.GetResponse();
-                // Display the status.
-                Debug.WriteLine(((HttpWebResponse)response).StatusDescription);
-
-                // Get the stream containing content returned by the server.
-                // The using block ensures the stream is automatically closed.
-                using (dataStream = response.GetResponseStream())
-                {
-                    // Open the stream using a StreamReader for easy access.
-                    StreamReader reader = new StreamReader(dataStream);
-                    // Read the content.
-                    string responseFromServer = reader.ReadToEnd();
-                    // Display the content.
-                    Debug.WriteLine(responseFromServer);
-                    try
-                    {
-                        BackEndResponseMessage RspMsg = JsonConvert.DeserializeObject<BackEndResponseMessage>(responseFromServer);
-                        if (RspMsg.status.Equals("1"))
-                        {
-                            requestResult = true;
-                        }
-                        else
-                        {
-                            requestResult = false;
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine(e);
-                        requestResult = false;
-                    }
-                }
-
-                // Close the response.
-                response.Close();
-
-                return requestResult;
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(String.Format("{0}", e));
-                return false;
-            }
-
-        }
-
     
         public static string SendPostJsonApplicationTypeRequest(string uri, Dictionary<string, Object> parameter)
         {
@@ -468,7 +136,7 @@ namespace BocBang
                 request.ContentType = "application/json; charset=UTF-8";
 
                 // Create POST data and convert it to a byte array.
-                string postData = "{{";// String.Format("{{\"idSession\": {0}, \"status\": 1, \"isLive\": {1} }}", sessionId, isLive);
+                string postData = "{";// String.Format("{{\"idSession\": {0}, \"status\": 1, \"isLive\": {1} }}", sessionId, isLive);
 
                 foreach (string key in parameter.Keys)
                 {
@@ -477,7 +145,7 @@ namespace BocBang
                 }
                 //Remove last comma
                 postData = postData.Substring(0, postData.Length - 1);
-                postData = postData + "}}";
+                postData = postData + "}";
 
                 byte[] byteArray = Encoding.UTF8.GetBytes(postData);
 
@@ -620,9 +288,61 @@ namespace BocBang
             }
             return "";
         }
-    
-        
-        public static List<SessionsEntity> getListSession()
+
+        public static string SendDeleteRequest(string uri, Dictionary<string, Object> parameter)
+        {
+            try
+            {
+                if (parameter.Keys.Count > 0)
+                {
+                    uri = uri + "?";
+                }
+                foreach (string key in parameter.Keys)
+                {
+                    string param = string.Format("{0}={1}&", key, parameter[key]);
+                    uri = uri + param;
+                }
+                if (parameter.Keys.Count > 0)
+                {
+                    uri = uri.Substring(0, uri.Length - 1);
+                }
+                byte[] byteArray = new byte[0];
+
+                // Create a request using a URL that can receive a post.
+                WebRequest request = GetWebRequester(uri, AppsSettings.GetInstance().UserInfo.Authorization);
+                // Set the Method property of the request to POST.
+                request.Method = "DELETE";
+                // Get the response.
+
+                using (WebResponse response = request.GetResponse())
+                {
+                    // Display the status.
+                    Console.WriteLine(((HttpWebResponse)response).StatusDescription);
+
+                    // Get the stream containing content returned by the server.
+                    // The using block ensures the stream is automatically closed.
+                    using (Stream dataStream = response.GetResponseStream())
+                    {
+                        // Open the stream using a StreamReader for easy access.
+                        StreamReader reader = new StreamReader(dataStream);
+                        // Read the content.
+                        string responseFromServer = reader.ReadToEnd();
+                        // Display the content.
+                        Debug.WriteLine(responseFromServer);
+                        response.Close();
+                        return responseFromServer;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(String.Format("{0}", e));
+            }
+            return "";
+        }
+
+
+        public static List<SessionsEntity> getListSession(long numberRecords)
         {
             Dictionary<string, object> listParameter = new Dictionary<string, object>();
 
@@ -635,7 +355,7 @@ namespace BocBang
             //page
             listParameter.Add("page", "1");
             //size
-            listParameter.Add("size", "100");
+            listParameter.Add("size", String.Format("{0}",numberRecords));
 
             string result = SendGetRequest(AppsSettings.GetInstance().ApiUrl + "/sessions/findByUserPermit", listParameter);
 
@@ -647,7 +367,14 @@ namespace BocBang
                 try
                 {
                     SessionMessage sessionMsg = JsonConvert.DeserializeObject<SessionMessage>(result);
-                    return sessionMsg.data.listSession;
+                    if (sessionMsg != null)
+                    {
+                        return sessionMsg.data.listSession;
+                    }
+                    else
+                    {
+                        return new List<SessionsEntity>();
+                    }
                 } catch (Exception e){
                     Debug.WriteLine(e);
                     return new List<SessionsEntity>();
@@ -671,7 +398,14 @@ namespace BocBang
                 try
                 {
                     RepresentativeMessage sessionMsg = JsonConvert.DeserializeObject<RepresentativeMessage>(result);
-                    return sessionMsg.data;
+                    if (sessionMsg != null)
+                    {
+                        return sessionMsg.data;
+                    }
+                    else
+                    {
+                        return new List<RepresentativeEntity>();
+                    }
                 }
                 catch (Exception e)
                 {
@@ -696,7 +430,14 @@ namespace BocBang
                 try
                 {
                     AudioMessages sessionMsg = JsonConvert.DeserializeObject<AudioMessages>(result);
-                    return sessionMsg.data;
+                    if (sessionMsg != null)
+                    {
+                        return sessionMsg.data;
+                    }
+                    else
+                    {
+                        return new List<AudioEntity>();
+                    }
                 }
                 catch (Exception e)
                 {
@@ -721,7 +462,14 @@ namespace BocBang
                 try
                 {
                     DocumentMessage sessionMsg = JsonConvert.DeserializeObject<DocumentMessage>(result);
-                    return sessionMsg.data;
+                    if (sessionMsg != null)
+                    {
+                        return sessionMsg.data;
+                    }
+                    else
+                    {
+                        return new DocumentEntity();
+                    }
                 }
                 catch (Exception e)
                 {
@@ -737,8 +485,19 @@ namespace BocBang
             string postResult = SendPostJsonApplicationTypeRequest(
                 AppsSettings.GetInstance().ApiUrl + "/reviewDocx/saveMergedFile",
                 postData);
-
-            return !postResult.Equals("");
+            try
+            {
+                BaseMessage message = JsonConvert.DeserializeObject<BaseMessage>(postResult);
+                if (message != null && message.status == Constants.RESPONSE_STATUS_SUCCESS)
+                {
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            return false;
         }
     
         public static bool RequestMerge(long idAudioParent)
@@ -749,7 +508,18 @@ namespace BocBang
 
             string result = SendPostJsonApplicationTypeRequest(url, listParameter);
 
-            return !result.Equals("");
+            try
+            {
+                BaseMessage message = JsonConvert.DeserializeObject<BaseMessage>(result);
+                if (message != null && message.status == Constants.RESPONSE_STATUS_SUCCESS)
+                {
+                    return true;
+                }
+            } catch (Exception e)
+            {
+                return false;
+            }
+            return false;
         }
 
         public static AudioEntity GetParentAudioByIdSession(long sessionId)
@@ -763,9 +533,22 @@ namespace BocBang
                 return null;
             } else
             {
-                AudioParentMessage entity = JsonConvert.DeserializeObject<AudioParentMessage>(result);
-
-                return entity.data;
+                try
+                {
+                    AudioParentMessage entity = JsonConvert.DeserializeObject<AudioParentMessage>(result);
+                    if (entity != null )
+                    {
+                        return entity.data;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                } catch (Exception e)
+                {
+                    return null;
+                }
+                
             }
         }
 
@@ -778,13 +561,27 @@ namespace BocBang
 
             if (result.Equals(""))
             {
-                return null;
+                return new List<GGGActivityEntitity>();
             }
             else
             {
-                GGGActivitiesMessage message = JsonConvert.DeserializeObject<GGGActivitiesMessage>(result);
+                try
+                {
+                    GGGActivitiesMessage message = JsonConvert.DeserializeObject<GGGActivitiesMessage>(result);
 
-                return message.data;
+                    if (message != null)
+                    {
+                        return message.data;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                } catch (Exception)
+                {
+                    return null;
+                }
+                
             }
         }
 
@@ -801,9 +598,22 @@ namespace BocBang
             }
             else
             {
-                GGGLocationMessage message = JsonConvert.DeserializeObject<GGGLocationMessage>(result);
-
-                return message.data;
+                try
+                {
+                    GGGLocationMessage message = JsonConvert.DeserializeObject<GGGLocationMessage>(result);
+                    if (message != null)
+                    {
+                        return message.data;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                } catch (Exception e)
+                {
+                    return null;
+                }
+                
             }
         }
 
@@ -820,9 +630,22 @@ namespace BocBang
             }
             else
             {
-                GGGUserGroupMessage message = JsonConvert.DeserializeObject<GGGUserGroupMessage>(result);
-
-                return message.data;
+                try
+                {
+                    GGGUserGroupMessage message = JsonConvert.DeserializeObject<GGGUserGroupMessage>(result);
+                    if (message != null)
+                    {
+                        return message.data;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                } catch (Exception e)
+                {
+                    return null;
+                }
+                
             }
         }
     
@@ -842,6 +665,27 @@ namespace BocBang
                     return true;
                 }
             } catch (Exception e)
+            {
+                return false;
+            }
+            return false;
+        }
+
+
+        public static bool RemoteGGGSession(long sessionId)
+        {
+            string url = AppsSettings.GetInstance().ApiUrl + String.Format("/sessions/deteleSessionFromRemoteServer/{0}", sessionId);
+            Dictionary<string, object> listParameter = new Dictionary<string, object>();
+            string postResult = SendDeleteRequest(url,listParameter);
+            try
+            {
+                BaseMessage message = JsonConvert.DeserializeObject<BaseMessage>(postResult);
+                if (message != null && message.status == Constants.RESPONSE_STATUS_SUCCESS)
+                {
+                    return true;
+                }
+            }
+            catch (Exception e)
             {
                 return false;
             }

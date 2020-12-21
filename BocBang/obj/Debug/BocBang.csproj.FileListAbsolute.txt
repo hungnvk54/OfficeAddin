@@ -23,3 +23,4 @@ D:\Data\08-ExampleCode\05-WordAddin\01-BocBang\BocBang\BocBang\obj\Debug\BocBang
 D:\Data\08-ExampleCode\05-WordAddin\01-BocBang\BocBang\BocBang\obj\Debug\BocBang.AppForm.RepresentativeSplitForm.resources
 D:\Data\08-ExampleCode\05-WordAddin\01-BocBang\BocBang\BocBang\obj\Debug\BocBang.AppForm.SessionInformationForm.resources
 D:\Data\08-ExampleCode\05-WordAddin\01-BocBang\BocBang\BocBang\obj\Debug\BocBang.AppForm.ExportForm.resources
+D:\Data\08-ExampleCode\05-WordAddin\01-BocBang\BocBang\BocBang\obj\Debug\BocBang.AppForm.CustomNotificationForm.resources

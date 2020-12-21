@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using BocBang.DataMessage;
-using System.Collections.Generic;
 
 namespace BocBang.AppForm
 {
@@ -33,6 +32,10 @@ namespace BocBang.AppForm
         private void BT_XacNhan_Click(object sender, EventArgs e)
         {
             bool exportResult = true;
+            if (IsDataValid() == false)
+            {
+                DialogResult = DialogResult.No;
+            }
             GGGExportEntity gGGExportEntity = BuildExportEntity();
             exportResult = Request.ExportSessionToGGGSystem(gGGExportEntity);
             if (exportResult == true)
@@ -48,12 +51,11 @@ namespace BocBang.AppForm
         private GGGExportEntity BuildExportEntity()
         {
             GGGExportEntity gGGExportEntity = new GGGExportEntity();
-
             gGGExportEntity.sessionId = AppsSettings.GetInstance().Session.idSession;
             gGGExportEntity.activity = this.mGGGActivityEntitities.ElementAt(this.CBB_HoatDong.SelectedIndex);
             gGGExportEntity.locationId = this.mGGGLocationEntities.ElementAt(this.CBB_Location.SelectedIndex).place_id;
 
-            if (this.CB_CheDoMat.Checked)
+            if (!this.CB_CheDoMat.Checked)
             {
                 gGGExportEntity.confidentialStatus = 0;
             }
@@ -94,11 +96,7 @@ namespace BocBang.AppForm
 
         private void BindingData()
         {
-            if (this.mGGGUserGroupEntities == null ||
-                this.mGGGActivityEntitities == null ||
-                this.mGGGUserGroupEntities == null ||
-                this.mGroupNameAndGroupEntity == null ||
-                this.mListUserGroupCheckbox == null)
+            if (IsDataValid() == false)
             {
                 return;
             }
@@ -152,6 +150,40 @@ namespace BocBang.AppForm
         private void CB_CheDoMat_CheckedChanged(object sender, EventArgs e)
         {
             this.FP_Container.Enabled = this.CB_CheDoMat.Checked;
+        }
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                DialogResult = DialogResult.Cancel;
+            } else if (e.KeyCode == Keys.F5)
+            {
+                this.mIsDataLoaded = false;
+                LoadingData();
+            }
+        }
+
+        private void OnFormLoad(object sender, EventArgs e)
+        {
+            this.Top = (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2;
+            this.Left = (Screen.PrimaryScreen.Bounds.Width - this.Width) / 2;
+        }
+
+        private bool IsDataValid()
+        {
+            if (this.mGGGUserGroupEntities == null ||
+                this.mGGGActivityEntitities == null ||
+                this.mGGGUserGroupEntities == null ||
+                this.mGroupNameAndGroupEntity == null ||
+                this.mListUserGroupCheckbox == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }

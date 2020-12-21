@@ -24,7 +24,7 @@ namespace BocBang.AppForm
             {
                 this.LB_KyHop.Text = sessionsEntity.nationalAssembly.ToString();
                 this.LB_Khoa.Text = sessionsEntity.meeting.ToString();
-                this.LB_NgayHop.Text = sessionsEntity.meetingDay;
+                this.LB_NgayHop.Text = Utils.FormatDateTime(sessionsEntity.meetingDay);
                 this.LB_Buoi.Text = sessionsEntity.meetingEntity.name;
                 this.LB_HoatDong.Text = sessionsEntity.activity.name;
                 this.LB_NguoiChuTri.Text = sessionsEntity.leadConference;
@@ -54,6 +54,20 @@ namespace BocBang.AppForm
                 }
                 this.RTB_NoiDung.Text = sessionsEntity.contentMeeting;
             }
+        }
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                DialogResult = DialogResult.Cancel;
+            }
+        }
+
+        private void OnFormLoad(object sender, EventArgs e)
+        {
+            this.Top = (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2;
+            this.Left = (Screen.PrimaryScreen.Bounds.Width - this.Width) / 2;
         }
     }
 }

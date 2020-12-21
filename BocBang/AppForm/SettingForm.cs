@@ -59,5 +59,11 @@ namespace BocBang
                 }
             }
         }
+
+        private void OnLoadForm(object sender, EventArgs e)
+        {
+            this.Top = (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2;
+            this.Left = (Screen.PrimaryScreen.Bounds.Width - this.Width) / 2;
+        }
     }
 }

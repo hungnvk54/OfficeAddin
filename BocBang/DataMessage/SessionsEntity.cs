@@ -43,7 +43,8 @@ namespace BocBang.DataMessage
 
         public string meetingDay
         {
-            get;set;
+            get;
+            set;
         }
         public MeetingEntity meetingEntity
         {

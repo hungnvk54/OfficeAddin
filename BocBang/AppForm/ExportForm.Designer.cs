@@ -29,6 +29,7 @@ namespace BocBang.AppForm
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExportForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.LB_HoatDong = new System.Windows.Forms.Label();
@@ -62,9 +63,9 @@ namespace BocBang.AppForm
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 225F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel3, 0, 2);
@@ -76,31 +77,34 @@ namespace BocBang.AppForm
             this.tableLayoutPanel1.Controls.Add(this.FP_Container, 1, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(708, 291);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 78F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1062, 455);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.LB_HoatDong);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Location = new System.Drawing.Point(4, 5);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(144, 24);
+            this.panel1.Size = new System.Drawing.Size(217, 37);
             this.panel1.TabIndex = 3;
             // 
             // LB_HoatDong
             // 
             this.LB_HoatDong.AutoSize = true;
-            this.LB_HoatDong.Location = new System.Drawing.Point(9, 6);
+            this.LB_HoatDong.Location = new System.Drawing.Point(14, 9);
+            this.LB_HoatDong.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LB_HoatDong.Name = "LB_HoatDong";
-            this.LB_HoatDong.Size = new System.Drawing.Size(74, 17);
+            this.LB_HoatDong.Size = new System.Drawing.Size(102, 25);
             this.LB_HoatDong.TabIndex = 0;
             this.LB_HoatDong.Text = "Hoạt động";
             // 
@@ -108,17 +112,19 @@ namespace BocBang.AppForm
             // 
             this.panel2.Controls.Add(this.label1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 33);
+            this.panel2.Location = new System.Drawing.Point(4, 52);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(144, 24);
+            this.panel2.Size = new System.Drawing.Size(217, 37);
             this.panel2.TabIndex = 4;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 3);
+            this.label1.Location = new System.Drawing.Point(6, 5);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 17);
+            this.label1.Size = new System.Drawing.Size(93, 25);
             this.label1.TabIndex = 1;
             this.label1.Text = " Địa điểm";
             // 
@@ -126,17 +132,19 @@ namespace BocBang.AppForm
             // 
             this.panel3.Controls.Add(this.label2);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(3, 63);
+            this.panel3.Location = new System.Drawing.Point(4, 99);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(144, 24);
+            this.panel3.Size = new System.Drawing.Size(217, 37);
             this.panel3.TabIndex = 5;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 3);
+            this.label2.Location = new System.Drawing.Point(10, 5);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(80, 17);
+            this.label2.Size = new System.Drawing.Size(113, 25);
             this.label2.TabIndex = 2;
             this.label2.Text = "Chế độ mật";
             // 
@@ -144,9 +152,10 @@ namespace BocBang.AppForm
             // 
             this.panel4.Controls.Add(this.CBB_HoatDong);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(153, 3);
+            this.panel4.Location = new System.Drawing.Point(229, 5);
+            this.panel4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(552, 24);
+            this.panel4.Size = new System.Drawing.Size(829, 37);
             this.panel4.TabIndex = 6;
             // 
             // CBB_HoatDong
@@ -154,17 +163,19 @@ namespace BocBang.AppForm
             this.CBB_HoatDong.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CBB_HoatDong.FormattingEnabled = true;
             this.CBB_HoatDong.Location = new System.Drawing.Point(0, 0);
+            this.CBB_HoatDong.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CBB_HoatDong.Name = "CBB_HoatDong";
-            this.CBB_HoatDong.Size = new System.Drawing.Size(552, 24);
+            this.CBB_HoatDong.Size = new System.Drawing.Size(829, 33);
             this.CBB_HoatDong.TabIndex = 0;
             // 
             // panel5
             // 
             this.panel5.Controls.Add(this.CBB_Location);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(153, 33);
+            this.panel5.Location = new System.Drawing.Point(229, 52);
+            this.panel5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(552, 24);
+            this.panel5.Size = new System.Drawing.Size(829, 37);
             this.panel5.TabIndex = 7;
             // 
             // CBB_Location
@@ -172,25 +183,28 @@ namespace BocBang.AppForm
             this.CBB_Location.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CBB_Location.FormattingEnabled = true;
             this.CBB_Location.Location = new System.Drawing.Point(0, 0);
+            this.CBB_Location.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CBB_Location.Name = "CBB_Location";
-            this.CBB_Location.Size = new System.Drawing.Size(552, 24);
+            this.CBB_Location.Size = new System.Drawing.Size(829, 33);
             this.CBB_Location.TabIndex = 0;
             // 
             // panel6
             // 
             this.panel6.Controls.Add(this.CB_CheDoMat);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(153, 63);
+            this.panel6.Location = new System.Drawing.Point(229, 99);
+            this.panel6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(552, 24);
+            this.panel6.Size = new System.Drawing.Size(829, 37);
             this.panel6.TabIndex = 8;
             // 
             // CB_CheDoMat
             // 
             this.CB_CheDoMat.AutoSize = true;
-            this.CB_CheDoMat.Location = new System.Drawing.Point(3, 2);
+            this.CB_CheDoMat.Location = new System.Drawing.Point(4, 3);
+            this.CB_CheDoMat.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CB_CheDoMat.Name = "CB_CheDoMat";
-            this.CB_CheDoMat.Size = new System.Drawing.Size(150, 21);
+            this.CB_CheDoMat.Size = new System.Drawing.Size(184, 29);
             this.CB_CheDoMat.TabIndex = 0;
             this.CB_CheDoMat.Text = "                              ";
             this.CB_CheDoMat.UseVisualStyleBackColor = true;
@@ -200,17 +214,19 @@ namespace BocBang.AppForm
             // 
             this.panel7.Controls.Add(this.label3);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(3, 93);
+            this.panel7.Location = new System.Drawing.Point(4, 146);
+            this.panel7.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(144, 145);
+            this.panel7.Size = new System.Drawing.Size(217, 226);
             this.panel7.TabIndex = 9;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 8);
+            this.label3.Location = new System.Drawing.Point(10, 12);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(120, 17);
+            this.label3.Size = new System.Drawing.Size(166, 25);
             this.label3.TabIndex = 0;
             this.label3.Text = "Nhóm người dùng";
             // 
@@ -219,16 +235,18 @@ namespace BocBang.AppForm
             this.panel8.Controls.Add(this.BT_XacNhan);
             this.panel8.Controls.Add(this.Btn_Cancel);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(153, 244);
+            this.panel8.Location = new System.Drawing.Point(229, 382);
+            this.panel8.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(552, 44);
+            this.panel8.Size = new System.Drawing.Size(829, 68);
             this.panel8.TabIndex = 10;
             // 
             // BT_XacNhan
             // 
-            this.BT_XacNhan.Location = new System.Drawing.Point(120, 9);
+            this.BT_XacNhan.Location = new System.Drawing.Point(180, 14);
+            this.BT_XacNhan.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.BT_XacNhan.Name = "BT_XacNhan";
-            this.BT_XacNhan.Size = new System.Drawing.Size(101, 26);
+            this.BT_XacNhan.Size = new System.Drawing.Size(152, 41);
             this.BT_XacNhan.TabIndex = 1;
             this.BT_XacNhan.Text = "Xác nhận";
             this.BT_XacNhan.UseVisualStyleBackColor = true;
@@ -236,9 +254,10 @@ namespace BocBang.AppForm
             // 
             // Btn_Cancel
             // 
-            this.Btn_Cancel.Location = new System.Drawing.Point(240, 9);
+            this.Btn_Cancel.Location = new System.Drawing.Point(360, 14);
+            this.Btn_Cancel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Btn_Cancel.Name = "Btn_Cancel";
-            this.Btn_Cancel.Size = new System.Drawing.Size(101, 26);
+            this.Btn_Cancel.Size = new System.Drawing.Size(152, 41);
             this.Btn_Cancel.TabIndex = 1;
             this.Btn_Cancel.Text = "Hủy bỏ";
             this.Btn_Cancel.UseVisualStyleBackColor = true;
@@ -249,23 +268,30 @@ namespace BocBang.AppForm
             this.FP_Container.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.FP_Container.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FP_Container.Enabled = false;
-            this.FP_Container.Location = new System.Drawing.Point(153, 93);
-            this.FP_Container.MaximumSize = new System.Drawing.Size(552, 145);
-            this.FP_Container.MinimumSize = new System.Drawing.Size(552, 145);
+            this.FP_Container.Location = new System.Drawing.Point(229, 146);
+            this.FP_Container.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.FP_Container.MaximumSize = new System.Drawing.Size(827, 225);
+            this.FP_Container.MinimumSize = new System.Drawing.Size(827, 225);
             this.FP_Container.Name = "FP_Container";
-            this.FP_Container.Size = new System.Drawing.Size(552, 145);
+            this.FP_Container.Size = new System.Drawing.Size(827, 225);
             this.FP_Container.TabIndex = 11;
             // 
             // ExportForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(708, 291);
+            this.ClientSize = new System.Drawing.Size(1062, 455);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.MaximumSize = new System.Drawing.Size(726, 338);
-            this.MinimumSize = new System.Drawing.Size(726, 338);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MaximumSize = new System.Drawing.Size(1080, 502);
+            this.MinimumSize = new System.Drawing.Size(1080, 502);
             this.Name = "ExportForm";
             this.Text = "Xuất bản nội dung";
+            this.Load += new System.EventHandler(this.OnFormLoad);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

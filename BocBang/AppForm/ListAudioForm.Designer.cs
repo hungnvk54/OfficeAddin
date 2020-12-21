@@ -32,6 +32,7 @@ namespace BocBang.AppForm
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListAudioForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.DGV_ListAudio = new System.Windows.Forms.DataGridView();
             this.Order = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,15 +49,16 @@ namespace BocBang.AppForm
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.Controls.Add(this.DGV_ListAudio, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(6);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 450);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1600, 866);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // DGV_ListAudio
@@ -74,11 +76,14 @@ namespace BocBang.AppForm
             this.Reviewer,
             this.MergedStatus});
             this.DGV_ListAudio.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DGV_ListAudio.Location = new System.Drawing.Point(3, 23);
+            this.DGV_ListAudio.Location = new System.Drawing.Point(6, 45);
+            this.DGV_ListAudio.Margin = new System.Windows.Forms.Padding(6);
             this.DGV_ListAudio.MultiSelect = false;
             this.DGV_ListAudio.Name = "DGV_ListAudio";
+            this.DGV_ListAudio.RowHeadersVisible = false;
+            this.DGV_ListAudio.RowHeadersWidth = 51;
             this.DGV_ListAudio.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DGV_ListAudio.Size = new System.Drawing.Size(794, 424);
+            this.DGV_ListAudio.Size = new System.Drawing.Size(1588, 815);
             this.DGV_ListAudio.TabIndex = 0;
             this.DGV_ListAudio.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_ListAudio_CellContentClick);
             // 
@@ -86,6 +91,7 @@ namespace BocBang.AppForm
             // 
             this.Order.FillWeight = 50F;
             this.Order.HeaderText = "STT";
+            this.Order.MinimumWidth = 6;
             this.Order.Name = "Order";
             this.Order.ReadOnly = true;
             this.Order.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -94,24 +100,27 @@ namespace BocBang.AppForm
             // 
             this.AudioName.FillWeight = 150F;
             this.AudioName.HeaderText = "Tên băng";
+            this.AudioName.MinimumWidth = 6;
             this.AudioName.Name = "AudioName";
             this.AudioName.ReadOnly = true;
             this.AudioName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // TranslateStatus
             // 
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TranslateStatus.DefaultCellStyle = dataGridViewCellStyle1;
             this.TranslateStatus.HeaderText = "Trạng thái dịch";
+            this.TranslateStatus.MinimumWidth = 6;
             this.TranslateStatus.Name = "TranslateStatus";
             this.TranslateStatus.ReadOnly = true;
             this.TranslateStatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // ReviewStatus
             // 
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReviewStatus.DefaultCellStyle = dataGridViewCellStyle2;
             this.ReviewStatus.HeaderText = "Trạng thái duyệt";
+            this.ReviewStatus.MinimumWidth = 6;
             this.ReviewStatus.Name = "ReviewStatus";
             this.ReviewStatus.ReadOnly = true;
             this.ReviewStatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -119,27 +128,35 @@ namespace BocBang.AppForm
             // Reviewer
             // 
             this.Reviewer.HeaderText = "Người duyệt";
+            this.Reviewer.MinimumWidth = 6;
             this.Reviewer.Name = "Reviewer";
             this.Reviewer.ReadOnly = true;
             this.Reviewer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // MergedStatus
             // 
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MergedStatus.DefaultCellStyle = dataGridViewCellStyle3;
             this.MergedStatus.HeaderText = "Trạng thái tổng hợp";
+            this.MergedStatus.MinimumWidth = 6;
             this.MergedStatus.Name = "MergedStatus";
             this.MergedStatus.ReadOnly = true;
             this.MergedStatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // ListAudioForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1600, 866);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "ListAudioForm";
-            this.Text = "ListAudioForm";
+            this.Text = "Danh sách tệp âm thanh";
+            this.Load += new System.EventHandler(this.OnFormLoad);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGV_ListAudio)).EndInit();
             this.ResumeLayout(false);

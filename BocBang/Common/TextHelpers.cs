@@ -37,17 +37,18 @@ namespace BocBang.Common
             selection.TypeParagraph();
             selection.set_Style(doc.Styles[Constants.ContentStyle]);
         }
-        public static void highlightText(Word.Range rng, string str, Word.WdColorIndex clr)
+
+        public static void RemoveAllContent(Word.Document doc)
         {
-            rng.Find.ClearFormatting();
-            rng.Find.Forward = true;
-            rng.Find.Text = str;
-            rng.Find.Execute();
-            while (rng.Find.Found)
+            foreach (Word.Paragraph para in doc.Paragraphs)
             {
-                rng.HighlightColorIndex = clr;
-                rng.Find.Execute();
+                Word.Range range = doc.Range(para.Range.Start, para.Range.End);
+                range.Delete();
             }
+
+            Word.Selection selection = Globals.ThisAddIn.Application.Selection;
+            selection.TypeParagraph();
+            selection.set_Style(doc.Styles[Constants.ContentStyle]);
         }
     }
 }

@@ -47,11 +47,11 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.BT_Cancel);
             this.groupBox1.Controls.Add(this.BT_Save);
-            this.groupBox1.Location = new System.Drawing.Point(9, 10);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Location = new System.Drawing.Point(17, 18);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox1.Size = new System.Drawing.Size(582, 144);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.groupBox1.Size = new System.Drawing.Size(992, 276);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cài đặt";
@@ -59,45 +59,47 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(4, 64);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Location = new System.Drawing.Point(8, 124);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(73, 13);
+            this.label5.Size = new System.Drawing.Size(134, 25);
             this.label5.TabIndex = 11;
             this.label5.Text = "Thư mục Tạm";
             // 
             // ConfigForm_TB_DataPath
             // 
-            this.ConfigForm_TB_DataPath.Location = new System.Drawing.Point(122, 64);
-            this.ConfigForm_TB_DataPath.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ConfigForm_TB_DataPath.Location = new System.Drawing.Point(244, 124);
+            this.ConfigForm_TB_DataPath.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ConfigForm_TB_DataPath.Name = "ConfigForm_TB_DataPath";
-            this.ConfigForm_TB_DataPath.Size = new System.Drawing.Size(314, 20);
+            this.ConfigForm_TB_DataPath.Size = new System.Drawing.Size(624, 30);
             this.ConfigForm_TB_DataPath.TabIndex = 7;
             // 
             // TB_ApiUrl
             // 
-            this.TB_ApiUrl.Location = new System.Drawing.Point(122, 28);
-            this.TB_ApiUrl.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TB_ApiUrl.Location = new System.Drawing.Point(244, 53);
+            this.TB_ApiUrl.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.TB_ApiUrl.MaximumSize = new System.Drawing.Size(624, 30);
+            this.TB_ApiUrl.MinimumSize = new System.Drawing.Size(624, 30);
             this.TB_ApiUrl.Name = "TB_ApiUrl";
-            this.TB_ApiUrl.Size = new System.Drawing.Size(446, 20);
+            this.TB_ApiUrl.Size = new System.Drawing.Size(624, 30);
             this.TB_ApiUrl.TabIndex = 4;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(7, 28);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Location = new System.Drawing.Point(13, 53);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.Size = new System.Drawing.Size(65, 25);
             this.label4.TabIndex = 8;
             this.label4.Text = "ApiUrl";
             // 
             // BT_Cancel
             // 
-            this.BT_Cancel.Location = new System.Drawing.Point(288, 98);
-            this.BT_Cancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BT_Cancel.Location = new System.Drawing.Point(597, 203);
+            this.BT_Cancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.BT_Cancel.Name = "BT_Cancel";
-            this.BT_Cancel.Size = new System.Drawing.Size(66, 28);
+            this.BT_Cancel.Size = new System.Drawing.Size(111, 41);
             this.BT_Cancel.TabIndex = 10;
             this.BT_Cancel.Text = "Hủy";
             this.BT_Cancel.UseVisualStyleBackColor = true;
@@ -105,10 +107,10 @@
             // 
             // BT_Save
             // 
-            this.BT_Save.Location = new System.Drawing.Point(200, 98);
-            this.BT_Save.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BT_Save.Location = new System.Drawing.Point(421, 203);
+            this.BT_Save.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.BT_Save.Name = "BT_Save";
-            this.BT_Save.Size = new System.Drawing.Size(68, 28);
+            this.BT_Save.Size = new System.Drawing.Size(116, 41);
             this.BT_Save.TabIndex = 9;
             this.BT_Save.Text = "Lưu";
             this.BT_Save.UseVisualStyleBackColor = true;
@@ -116,14 +118,19 @@
             // 
             // SettingForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 161);
+            this.ClientSize = new System.Drawing.Size(1028, 309);
             this.Controls.Add(this.groupBox1);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.MaximumSize = new System.Drawing.Size(1046, 356);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(1046, 356);
             this.Name = "SettingForm";
             this.Text = "SettingForm";
+            this.Load += new System.EventHandler(this.OnLoadForm);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

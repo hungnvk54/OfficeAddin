@@ -124,10 +124,45 @@ namespace BocBang.AppForm
                 BindingData(mListRepresentative);
             } else
             {
-                mSearchRepresentative = mListRepresentative.FindAll(x => Utils.fromUtf8ToAscii(x.name.ToLower()).Contains(
-                    Utils.fromUtf8ToAscii(TB_Search.Text.Trim().ToLower())));
-                BindingData(mSearchRepresentative);
+                if(this.RB_Duty.Checked)
+                {
+                    SearchByDuty(this.TB_Search.Text);
+                } else
+                {
+                    SearchByName(this.TB_Search.Text);
+                }
             }
+        }
+
+        private void SearchByName(string name)
+        {
+            mSearchRepresentative = mListRepresentative.FindAll(x => Utils.fromUtf8ToAscii(x.name.ToLower()).Contains(
+                    Utils.fromUtf8ToAscii(name.Trim().ToLower())));
+            BindingData(mSearchRepresentative);
+        }
+
+        private void SearchByDuty(string duty)
+        {
+            mSearchRepresentative = mListRepresentative.FindAll(x => Utils.fromUtf8ToAscii(x.duty.ToLower()).Contains(
+                    Utils.fromUtf8ToAscii(duty.Trim().ToLower())));
+            BindingData(mSearchRepresentative);
+        }
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F5)
+            {
+                FillingData();
+            } else if (e.KeyCode == Keys.Escape)
+            {
+                DialogResult = DialogResult.Cancel;
+            }
+        }
+
+        private void OnFormLoad(object sender, EventArgs e)
+        {
+            this.Top = (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2;
+            this.Left = (Screen.PrimaryScreen.Bounds.Width - this.Width) / 2;
         }
     }
 }
