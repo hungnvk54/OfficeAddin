@@ -22,10 +22,67 @@ namespace BocBang
         private void BocBang_Load(object sender, RibbonUIEventArgs e)
         {
             Debug.WriteLine("This had beend loaded");
-            Globals.ThisAddIn.Application.DocumentBeforeClose += Application_DocumentBeforeClose;
+            //Globals.ThisAddIn.Application.DocumentBeforeClose += Application_DocumentBeforeClose;
             Globals.ThisAddIn.Application.DocumentBeforeSave += Application_DocumentBeforeSave;
-            Globals.ThisAddIn.Application.WindowSelectionChange += Application_WindowSelectionChange;
+            //Globals.ThisAddIn.Application.WindowSelectionChange += Application_WindowSelectionChange;
+            Globals.ThisAddIn.Application.WindowActivate += Application_WindowActivate;
             ApplicationInitFormData();
+        }
+
+        private void SettingKeyTips()
+        {
+            this.Btn_ListSession.KeyTip = "G";
+        }
+
+        private void ActiveControl()
+        {
+            ///Enable button
+            this.Btn_Insert.Enabled = true;
+            this.Btn_Spit.Enabled = true;
+            this.Btn_Export.Enabled = true;
+            this.Btn_Undo.Enabled = true;
+            this.Btn_ListAudio.Enabled = true;
+            this.Btn_Merge.Enabled = true;
+            this.Btn_SessionInfo.Enabled = true;
+            this.Btn_Save.Enabled = true;
+        }
+
+        private void FocusMainDocument()
+        {
+            Globals.ThisAddIn.Application.ActiveWindow.SetFocus();
+            //Globals.ThisAddIn.Application.Activate();
+        }
+
+        private void DeactiveControl()
+        {
+            ///Enable button
+            this.Btn_Insert.Enabled = false;
+            this.Btn_Spit.Enabled = false;
+            this.Btn_Export.Enabled = false;
+            this.Btn_Undo.Enabled = false;
+            this.Btn_ListAudio.Enabled = false;
+            this.Btn_Merge.Enabled = false;
+            this.Btn_SessionInfo.Enabled = false;
+            this.Btn_Save.Enabled = false;
+        }
+
+        private void Application_WindowActivate(Word.Document Doc, Word.Window Wn)
+        {
+            Debug.WriteLine("Windown Active on this: " + Doc.Name + "  " +
+                Doc.Name.Equals(AppsSettings.GetInstance().DocumentName));
+            if (AppsSettings.GetInstance().isLogin &&
+                AppsSettings.GetInstance().Session != null &&
+                AppsSettings.GetInstance().DocumentName != null &&
+                Doc.Name.Equals(AppsSettings.GetInstance().DocumentName))
+            {
+                ActiveControl();
+            }
+            else
+            {
+                DeactiveControl();
+            }
+
+
         }
 
         private void Application_WindowSelectionChange(Word.Selection Sel)
@@ -52,7 +109,14 @@ namespace BocBang
 
         private void Application_DocumentBeforeSave(Word.Document Doc, ref bool SaveAsUI, ref bool Cancel)
         {
-            SaveDocumentToRemoteServer();
+            if (AppsSettings.GetInstance().isLogin &&
+                 AppsSettings.GetInstance().Session != null &&
+                 AppsSettings.GetInstance().DocumentName != null &&
+                Doc.Name.Equals(AppsSettings.GetInstance().DocumentName))
+            {
+                Debug.WriteLine(Doc.Name);
+                SaveDocumentToRemoteServer();
+            }
         }
 
         private void Application_DocumentBeforeClose(Word.Document Doc, ref bool Cancel)
@@ -87,13 +151,13 @@ namespace BocBang
 
         private void Btn_Insert_Click(object sender, RibbonControlEventArgs e)
         {
-            Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
             if (this.mRepresentativeForm == null)
             {
                 this.mRepresentativeForm = new RepresentativeForm();
             }
             this.mRepresentativeForm.CustomShowDialog();
-            doc.Activate();
+
+            this.FocusMainDocument();
         }
 
         private void Btn_ListSession_Click(object sender, RibbonControlEventArgs e)
@@ -103,7 +167,6 @@ namespace BocBang
                 MessageBox.Show("Bạn phải đăng nhập trước khi sử dụng", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             } else
             {
-
                 if (AppsSettings.GetInstance().Session != null)
                 {
                     DialogResult dialogResult = CreateInformationDialog.CreateConfirmBoxWithTwoButton(
@@ -111,7 +174,7 @@ namespace BocBang
                         "Cảnh bảo");
                     if (dialogResult == DialogResult.Yes)
                     {
-                        SaveDocumentToRemoteServer();
+                        SaveDocumentToRemoteServer(false);
                     }
                 }
 
@@ -121,27 +184,20 @@ namespace BocBang
                 {
                     ///Create new document and save as new file
                     Word.Document document = Globals.ThisAddIn.Application.ActiveDocument;
+                    AppsSettings.GetInstance().DocumentName = null; //To prevent save unknow document
                     WordProcessingHelper.SaveNewSessionDocument(AppsSettings.GetInstance().Session, document);
                     ///Create default document
                     WordProcessingHelper.CreateDocumentTitle(document,
                         AppsSettings.GetInstance().Session);
-
+                    AppsSettings.GetInstance().DocumentName = document.Name;
                     //Get document Entity
                     DocumentEntity documentEntity = Request.getMergedDocument(AppsSettings.GetInstance().Session.idSession);
                     WordProcessingHelper.InsertDataToMergedDocument(document, documentEntity);
-
                     ///Load predefine data
                     mRepresentativeForm.FillingData();
-
-                    ///Enable button
-                    this.Btn_Insert.Enabled = true;
-                    this.Btn_Spit.Enabled = true;
-                    this.Btn_Export.Enabled = true;
-                    this.Btn_Undo.Enabled = true;
-                    this.Btn_ListAudio.Enabled = true;
-                    this.Btn_Merge.Enabled = true;
-                    this.Btn_SessionInfo.Enabled = true;
-                    this.Btn_Save.Enabled = true;
+                    AppsSettings.GetInstance().IsRepresentativeSplit = false;
+                    this.FocusMainDocument();
+                    this.ActiveControl();
                 }
             }
             
@@ -158,9 +214,29 @@ namespace BocBang
         {
             try
             {
+
+                Word.Document document = Globals.ThisAddIn.Application.ActiveDocument;
+                //0. Kiem tra danh sach dai bieu
+                string missingName;
+                if (WordProcessingHelper.CheckRepresentativeList(document, 
+                    mRepresentativeForm.GetRepresentativeList(), out missingName) == false)
+                {
+                    //Tai lai danh sach
+                    mRepresentativeForm.FillingData();
+                    if (WordProcessingHelper.CheckRepresentativeList(document,
+                    mRepresentativeForm.GetRepresentativeList(), out missingName) == false)
+                    {
+                        ///Notify nguoi dung tao moi
+                        DialogResult result = CreateInformationDialog.CreateConfirmBoxWithTwoButton("Không tìm thấy đại biểu: " + missingName + "  Bạn có muốn thêm mới?", "Cảnh báo");
+                        if (result == DialogResult.Yes)
+                        {
+                            System.Diagnostics.Process.Start(AppsSettings.GetInstance().ApiUrl + "/quan-ly-dai-bieu");
+                        }
+                        return;
+                    }
+                }
                 //1. Luu lai cac thay doi
                 ///Kiem tra xem co thay doi nao khoong, neu co, luu lai thay doi
-                Word.Document document = Globals.ThisAddIn.Application.ActiveDocument;
                 DocumentEntity documentEntity = WordProcessingHelper.ParsingDocument(
                     document, mRepresentativeForm.GetRepresentativeList());
                 documentEntity.sessionId = AppsSettings.GetInstance().Session.idSession;
@@ -190,7 +266,7 @@ namespace BocBang
                 TextHelpers.RemoveContent(document);
                 //4. day du lieu ra ma hinh
                 WordProcessingHelper.InsertDataToMergedDocument(Globals.ThisAddIn.Application.ActiveDocument, documentEntity);
-
+                AppsSettings.GetInstance().IsRepresentativeSplit = false;
             } catch (Exception ee)
             {
                 NotificationFactor.ErrorNotification("Tổng hợp biên bản thất bại");
@@ -202,11 +278,37 @@ namespace BocBang
             try
             {
                 Word.Document document = Globals.ThisAddIn.Application.ActiveDocument;
-
+                string missingName;
+                if (WordProcessingHelper.CheckRepresentativeList(document,
+                    mRepresentativeForm.GetRepresentativeList(), out missingName) == false)
+                {
+                    //Tai lai danh sach
+                    mRepresentativeForm.FillingData();
+                    if (WordProcessingHelper.CheckRepresentativeList(document,
+                    mRepresentativeForm.GetRepresentativeList(), out missingName) == false)
+                    {
+                        ///Notify nguoi dung tao moi
+                        DialogResult result = CreateInformationDialog.CreateConfirmBoxWithTwoButton("Không tìm thấy đại biểu: " + missingName + "  Bạn có muốn thêm mới?", "Cảnh báo");
+                        if (result == DialogResult.Yes)
+                        {
+                            System.Diagnostics.Process.Start(AppsSettings.GetInstance().ApiUrl + "/quan-ly-dai-bieu");
+                        }
+                        return;
+                    }
+                }
                 DocumentEntity documentEntity = WordProcessingHelper.ParsingDocument(
                     document, mRepresentativeForm.GetRepresentativeList());
+
+                ///Save document to server
+                documentEntity.sessionId = AppsSettings.GetInstance().Session.idSession;
+                Request.SaveDocument(documentEntity);
+
+                ///Call API to split representative
+                Request.RequestSplitRepresentative(AppsSettings.GetInstance().Session.idSession);
+
                 mRepresentativeSplitForm.InitDataFormIntoForm(documentEntity);
                 mRepresentativeSplitForm.ShowDialog();
+                AppsSettings.GetInstance().IsRepresentativeSplit = true;
             } catch (Exception ee)
             {
                 NotificationFactor.ErrorNotification("Không thể tách lời đại biểu");
@@ -217,15 +319,24 @@ namespace BocBang
 
         private void Btn_Export_Click(object sender, RibbonControlEventArgs e)
         {
-            mExportForm.LoadingData();
-            DialogResult dialogResult = mExportForm.ShowDialog();
+            if (AppsSettings.GetInstance().IsRepresentativeSplit == true)
+            {
+                mExportForm.LoadingData();
+                DialogResult dialogResult = mExportForm.ShowDialog();
 
-            if( dialogResult == DialogResult.OK)
+                if (dialogResult == DialogResult.OK)
+                {
+                    NotificationFactor.InfoNotification("Xuất bản thành công");
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    NotificationFactor.ErrorNotification("Xuất bản thất bại");
+                }
+            }
+            else
             {
-                NotificationFactor.InfoNotification("Xuất bản thành công");
-            }  else
-            {
-                NotificationFactor.ErrorNotification("Xuất bản thất bại");
+                CreateInformationDialog.CreateWarningBox("Bạn chưa tách lời đại biểu. Tách lời đại biểu trước khi xuất bản.",
+                    "cảnh báo");
             }
         }
 
@@ -270,7 +381,7 @@ namespace BocBang
             SaveDocumentToRemoteServer();
         }
 
-        private void SaveDocumentToRemoteServer()
+        private void SaveDocumentToRemoteServer(bool isNotify = true)
         {
             try
             {
@@ -279,22 +390,45 @@ namespace BocBang
                 if (AppsSettings.GetInstance().isLogin == true)
                 {
                     Word.Document document = Globals.ThisAddIn.Application.ActiveDocument;
+                    string missingName;
+                    if (WordProcessingHelper.CheckRepresentativeList(document,
+                        mRepresentativeForm.GetRepresentativeList(), out missingName) == false)
+                    {
+                        //Tai lai danh sach
+                        mRepresentativeForm.FillingData();
+                        if (WordProcessingHelper.CheckRepresentativeList(document,
+                        mRepresentativeForm.GetRepresentativeList(), out missingName) == false)
+                        {
+                            ///Notify nguoi dung tao moi
+                            DialogResult result = CreateInformationDialog.CreateConfirmBoxWithTwoButton("Không tìm thấy đại biểu: " + missingName + "  Bạn có muốn thêm mới?", "Cảnh báo");
+                            if (result == DialogResult.Yes)
+                            {
+                                System.Diagnostics.Process.Start(AppsSettings.GetInstance().ApiUrl + "/quan-ly-dai-bieu");
+                            }
+                            return;
+                        }
+                    }
                     DocumentEntity documentEntity = WordProcessingHelper.ParsingDocument(
                         document, mRepresentativeForm.GetRepresentativeList());
                     documentEntity.sessionId = AppsSettings.GetInstance().Session.idSession;
                     Request.SaveDocument(documentEntity);
-                    NotificationFactor.InfoNotification("Lưu nội dung thành công");
+
+                    if( isNotify)
+                        NotificationFactor.InfoNotification("Lưu nội dung thành công");
                 }
                 else
                 {
-                    NotificationFactor.WarningNotification("Không thể lưu văn bản do chưa đăng nhập");
+                    if (isNotify)
+                        NotificationFactor.WarningNotification("Không thể lưu văn bản do chưa đăng nhập");
                 }
             }
             catch (Exception e)
             {
-                NotificationFactor.ErrorNotification("Lưu nội dung thất bại");
+                if (isNotify)
+                    NotificationFactor.ErrorNotification("Lưu nội dung thất bại");
             }
-            
+
+            this.FocusMainDocument();
         }
 
         private void Btn_SessionInfo_Click(object sender, RibbonControlEventArgs e)
@@ -317,19 +451,6 @@ namespace BocBang
                     Debug.WriteLine("Error while formating document");
                 }
             }
-        }
-        int index = 0;
-        private void button1_Click(object sender, RibbonControlEventArgs e)
-        {
-            
-            if (index % 3 == 1)
-                NotificationFactor.InfoNotification("Toi la thong bao");
-            else if (index %3 == 2)
-                NotificationFactor.WarningNotification("Toi la thong bao");
-            else
-                NotificationFactor.ErrorNotification("Toi la thong bao");
-
-            index +=1;
         }
     }
 }

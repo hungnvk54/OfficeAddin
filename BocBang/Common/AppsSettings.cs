@@ -115,5 +115,20 @@ namespace BocBang
         {
             get;set;
         }
+
+        public string DocumentName
+        {
+            get;set;
+        }
+
+        public Boolean IsRepresentativeSplit
+        {
+            get;set;
+        }
+
+        public Boolean IsAddPageNumber
+        {
+            get;set;
+        }
     }
 }

@@ -55,13 +55,32 @@ namespace BocBang.Common
             return documentesEntity;
         } 
 
-
+        public static bool CheckRepresentativeList(Word.Document document,
+            List<RepresentativeEntity> representativeEntities, out string reprentativeName)
+        {
+            foreach (Word.Paragraph para in TextHelpers.GetText(document))
+            {
+                string styleName = ((Word.Style)para.get_Style()).NameLocal;
+                if (styleName.Equals(Constants.RerpesentativeStyle) &&
+                    !para.Range.Text.Trim().Equals(""))
+                {
+                    RepresentativeEntity entity = FindRepresentative(representativeEntities, para.Range.Text);
+                    if (entity == null)
+                    {
+                        reprentativeName = para.Range.Text;
+                        return false;
+                    }
+                }
+            }
+            reprentativeName = "";
+            return true;
+        }
         public static RepresentativeEntity FindRepresentative(List<RepresentativeEntity> representativeEntities,
             string representativeText)
         {
             foreach (RepresentativeEntity entity in representativeEntities)
             {
-                if (representativeText.Trim().Equals(Utils.FormatRepresentative(entity.name, entity.duty)))
+                if (Utils.CompareRepresentative(representativeText, entity.name, entity.duty))
                 {
                     return entity;
                 }
@@ -228,6 +247,18 @@ namespace BocBang.Common
                 selection.TypeParagraph();
                 selection.set_Style(document.Styles[Constants.ContentStyle]);
             }
+
+            if (AppsSettings.GetInstance().IsAddPageNumber == false)
+            {
+                Globals.ThisAddIn.Application.ActiveWindow.ActivePane.View.SeekView = Microsoft.Office.Interop.Word.WdSeekView.wdSeekCurrentPageFooter;
+                Globals.ThisAddIn.Application.ActiveWindow.ActivePane.Selection.Paragraphs.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                Object CurrentPage = Word.WdFieldType.wdFieldPage;
+                Globals.ThisAddIn.Application.ActiveWindow.Selection.Fields.Add(Globals.ThisAddIn.Application.ActiveWindow.Selection.Range, ref CurrentPage);
+
+                Globals.ThisAddIn.Application.ActiveWindow.ActivePane.View.SeekView = Microsoft.Office.Interop.Word.WdSeekView.wdSeekMainDocument;
+
+                AppsSettings.GetInstance().IsAddPageNumber = true;
+            }
             
         }
 
@@ -268,7 +299,7 @@ namespace BocBang.Common
             SessionsEntity sessionsEntity, Word.Document document)
         {
             ///Combine path: ConfigurePath/Sang_Datetime_SessionId
-            string name = "Bienban.docx";
+            string name =  Utils.FormatDateTimeToSaveFile(sessionsEntity.meetingDay) + sessionsEntity.meetingEntity.name.Substring(0,1) + ".docx";
             string folderName = Utils.fromUtf8ToAscii(sessionsEntity.meetingEntity.name) + "_" +
                 sessionsEntity.meetingDay + "_" + sessionsEntity.idSession;
             string[] combinePath = { AppsSettings.GetInstance().DataDir, folderName };
@@ -302,7 +333,7 @@ namespace BocBang.Common
             }
             string fillFileName = Path.Combine(combineFullPath);
             ///0.Save as other document
-            document.SaveAs2(Path.Combine(combinePath));
+            document.SaveAs2(Path.Combine(fillFileName));
         }
     }
 }

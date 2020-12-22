@@ -82,6 +82,21 @@ namespace BocBang
             return String.Format("{0} - {1}", name, duty);
         }
 
+        public static string FormatRepresentativeWindownSeperator(String name, String duty)
+        {
+            return String.Format("{0} – {1}", name, duty);
+        }
+
+        public static bool CompareRepresentative(
+            string representativeTitle, string name, string duty
+            )
+        {
+            bool isEqual = representativeTitle.Trim().Equals(FormatRepresentative(name, duty)) ||
+                representativeTitle.Trim().Equals(FormatRepresentativeWindownSeperator(name, duty));
+
+            return isEqual;
+        }
+
 
         public static string fromUtf8ToAscii(string src)
         {
@@ -154,6 +169,22 @@ namespace BocBang
                 if (DateTime.TryParseExact(dateTime,pattern,null, System.Globalization.DateTimeStyles.None, out formatedDate))
                 {
                     return formatedDate.ToString("dd/MM/yyyy");
+                }
+            }
+
+            return dateTime;
+        }
+
+        public static string FormatDateTimeToSaveFile(string dateTime)
+        {
+            string[] patterns = { "MM-dd-yyyy", "dd-MM-yyyy", "yyyy-MM-dd", "yyyy-MMM-dd" };
+
+            foreach (string pattern in patterns)
+            {
+                DateTime formatedDate;
+                if (DateTime.TryParseExact(dateTime, pattern, null, System.Globalization.DateTimeStyles.None, out formatedDate))
+                {
+                    return formatedDate.ToString("ddMMyyyy");
                 }
             }
 

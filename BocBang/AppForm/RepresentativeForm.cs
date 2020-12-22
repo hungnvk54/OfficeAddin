@@ -112,8 +112,8 @@ namespace BocBang.AppForm
             Word.Selection selection = Globals.ThisAddIn.Application.Selection;
             selection.set_Style(currentDocument.Styles[Constants.RerpesentativeStyle]);
             selection.TypeText(representative);
-            selection.TypeParagraph();
-            selection.set_Style(currentDocument.Styles[Constants.ContentStyle]);
+            //selection.InsertStyleSeparator();
+            //selection.set_Style(currentDocument.Styles[Constants.ContentStyle]);
         }
 
         private void TB_Search_TextChanged(object sender, EventArgs e)

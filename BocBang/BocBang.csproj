@@ -252,6 +252,7 @@
     <Compile Include="DataMessage\MeetingEntity.cs" />
     <Compile Include="DataMessage\RepresentativeEntity.cs" />
     <Compile Include="DataMessage\RepresentativeMessage.cs" />
+    <Compile Include="DataMessage\RequestSplitRepresentativeParam.cs" />
     <Compile Include="DataMessage\SessionMessage.cs" />
     <Compile Include="DataMessage\SessionsEntity.cs" />
     <Compile Include="DataMessage\UserEntity.cs" />

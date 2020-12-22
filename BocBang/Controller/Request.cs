@@ -691,5 +691,35 @@ namespace BocBang
             }
             return false;
         }
+    
+        public static bool RequestSplitRepresentative(long sessionId)
+        {
+            AudioEntity audioEntity = GetParentAudioByIdSession(sessionId);
+            if (audioEntity == null)
+            {
+                return false;
+            }
+
+            RequestSplitRepresentativeParam requestSplitRepresentativeParam = new RequestSplitRepresentativeParam();
+            requestSplitRepresentativeParam.idAudio = audioEntity.idAudio;
+
+            try
+            {
+                string postData = JsonConvert.SerializeObject(requestSplitRepresentativeParam);
+                string postResult = SendPostJsonApplicationTypeRequest(
+               AppsSettings.GetInstance().ApiUrl + "/representativeSplit/loadSplitRepresentative",
+               postData);
+                BaseMessage message = JsonConvert.DeserializeObject<BaseMessage>(postResult);
+                if (message != null && message.status == Constants.RESPONSE_STATUS_SUCCESS)
+                {
+                    return true;
+                }
+                
+            }catch (Exception e)
+            {
+                return false;
+            }
+            return false;
+        }
     }
 }

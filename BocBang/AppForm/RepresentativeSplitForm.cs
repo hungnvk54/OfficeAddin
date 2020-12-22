@@ -97,13 +97,15 @@ namespace BocBang.AppForm
             if (representativeDocumentParagraphs.Count > 0)
             {
                 Word.Document newDocument = Globals.ThisAddIn.Application.Documents.Add();
+                WordProcessingHelper.SaveRepresentativeDocument(AppsSettings.GetInstance().Session, newDocument, representativeDocumentParagraphs[0].belongTo.name);
                 WordProcessingHelper.CreateDefaultDocumentStyle(newDocument);
                 WordProcessingHelper.CreateDocumentTitle(newDocument, AppsSettings.GetInstance().Session);
                 WordProcessingHelper.GenerateRepresentativeDocument(representativeDocumentParagraphs, newDocument);
+                newDocument.Save();
             }
             else
             {
-                //Notify here
+                
             }
 
             DialogResult = DialogResult.OK;
