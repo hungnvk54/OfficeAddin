@@ -22,8 +22,8 @@ namespace BocBang.AppForm
         {
             if (sessionsEntity != null)
             {
-                this.LB_KyHop.Text = sessionsEntity.nationalAssembly.ToString();
-                this.LB_Khoa.Text = sessionsEntity.meeting.ToString();
+                this.LB_KyHop.Text = sessionsEntity.meeting.ToString();
+                this.LB_Khoa.Text = sessionsEntity.nationalAssembly.ToString(); 
                 this.LB_NgayHop.Text = Utils.FormatDateTime(sessionsEntity.meetingDay);
                 this.LB_Buoi.Text = sessionsEntity.meetingEntity.name;
                 this.LB_HoatDong.Text = sessionsEntity.activity.name;

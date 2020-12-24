@@ -19,7 +19,7 @@ namespace BocBang.AppForm
         private List<SessionsEntity> mSearchSession;
         private long mNumberOfRecords;
         private Boolean isLoad;
-        private static long MAX_NUMBER_RECORD = 10000;
+        private static long MAX_NUMBER_RECORD = 300;
         public SessionList()
         {
             InitializeComponent();

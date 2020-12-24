@@ -45,6 +45,7 @@ namespace BocBang
             this.Btn_Merge.Enabled = true;
             this.Btn_SessionInfo.Enabled = true;
             this.Btn_Save.Enabled = true;
+            this.btn_ResetAll.Enabled = true;
         }
 
         private void FocusMainDocument()
@@ -64,6 +65,7 @@ namespace BocBang
             this.Btn_Merge.Enabled = false;
             this.Btn_SessionInfo.Enabled = false;
             this.Btn_Save.Enabled = false;
+            this.btn_ResetAll.Enabled = false;
         }
 
         private void Application_WindowActivate(Word.Document Doc, Word.Window Wn)
@@ -84,7 +86,6 @@ namespace BocBang
 
 
         }
-
         private void Application_WindowSelectionChange(Word.Selection Sel)
         {
             Debug.WriteLine("Hello from selection change");
@@ -212,12 +213,13 @@ namespace BocBang
 
         private void Btn_Merge_Click(object sender, RibbonControlEventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             try
             {
 
                 Word.Document document = Globals.ThisAddIn.Application.ActiveDocument;
                 //0. Kiem tra danh sach dai bieu
-                string missingName;
+                /*string missingName;
                 if (WordProcessingHelper.CheckRepresentativeList(document, 
                     mRepresentativeForm.GetRepresentativeList(), out missingName) == false)
                 {
@@ -232,45 +234,46 @@ namespace BocBang
                         {
                             System.Diagnostics.Process.Start(AppsSettings.GetInstance().ApiUrl + "/quan-ly-dai-bieu");
                         }
-                        return;
                     }
-                }
+                }*/
                 //1. Luu lai cac thay doi
                 ///Kiem tra xem co thay doi nao khoong, neu co, luu lai thay doi
-                DocumentEntity documentEntity = WordProcessingHelper.ParsingDocument(
+                /*DocumentEntity documentEntity = WordProcessingHelper.ParsingDocument(
                     document, mRepresentativeForm.GetRepresentativeList());
                 documentEntity.sessionId = AppsSettings.GetInstance().Session.idSession;
-                Request.SaveDocument(documentEntity);
-                //2. Goi ham merger doc
+                Request.SaveDocument(documentEntity);*/
+                //2. Goi ham merge doc
                 AudioEntity entity = Request.GetParentAudioByIdSession(AppsSettings.GetInstance().Session.idSession);
                 if (entity == null)
                 {
                     CreateInformationDialog.CreateWarningBox("Không tồn tại tệp âm thanh tổng hợp", "cảnh báo");
                 } else
                 {
-                    Boolean isRequestSuccessful = Request.RequestMerge(entity.idAudio);
+                    DocumentEntity mergedDocument = Request.RequestMergeAndGetResult(entity.idAudio);
 
-                    if (isRequestSuccessful == true)
-                    {
-                        NotificationFactor.InfoNotification("Tổng hợp biên bản thành công");
-                    }
-                    else
+                    if (mergedDocument == null)
                     {
                         NotificationFactor.ErrorNotification("Tổng hợp biên bản thất bại");
+                        return;
                     }
+
+                    //3.Goi ham lay lai du lieu
+                    //Get document Entity
+                    //documentEntity = Request.getMergedDocument(AppsSettings.GetInstance().Session.idSession);
+                    //4.Clear current document
+                    //TextHelpers.RemoveContent(document);
+                    //4. day du lieu ra ma hinh
+                    WordProcessingHelper.InsertDataToEndDocument(Globals.ThisAddIn.Application.ActiveDocument, mergedDocument);
+                    AppsSettings.GetInstance().IsRepresentativeSplit = false;
+                    NotificationFactor.InfoNotification("Tổng hợp biên bản thành công");
                 }
-                //3.Goi ham lay lai du lieu
-                //Get document Entity
-                documentEntity = Request.getMergedDocument(AppsSettings.GetInstance().Session.idSession);
-                //4.Clear current document
-                TextHelpers.RemoveContent(document);
-                //4. day du lieu ra ma hinh
-                WordProcessingHelper.InsertDataToMergedDocument(Globals.ThisAddIn.Application.ActiveDocument, documentEntity);
-                AppsSettings.GetInstance().IsRepresentativeSplit = false;
+                
             } catch (Exception ee)
             {
                 NotificationFactor.ErrorNotification("Tổng hợp biên bản thất bại");
             }
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void Btn_Spit_Click(object sender, RibbonControlEventArgs e)
@@ -342,22 +345,24 @@ namespace BocBang
 
         private void Btn_Undo_Click(object sender, RibbonControlEventArgs e)
         {
-            if (AppsSettings.GetInstance().Session != null)
-            {
-                Boolean deleteResult = Request.RemoteGGGSession(AppsSettings.GetInstance().Session.idSession);
-                if (deleteResult == true)
+            DialogResult dialogResult = CreateInformationDialog.CreateConfirmBoxWithTwoButton(
+                "Bạn có chắc chắn muốn thu hồi phiên họp từ hệ thống 3G?", "Xác nhận");
+            if (dialogResult == DialogResult.Yes)
+            { 
+                if (AppsSettings.GetInstance().Session != null)
                 {
-                    ///@Todo notify successfully here
-                    NotificationFactor.InfoNotification("Thu hồi phiên thành công");
+                    Boolean deleteResult = Request.RemoteGGGSession(AppsSettings.GetInstance().Session.idSession);
+                    if (deleteResult == true)
+                    {
+                        NotificationFactor.InfoNotification("Thu hồi phiên thành công");
+                    } else
+                    {
+                        NotificationFactor.ErrorNotification("Thu hồi phiên thất bại");
+                    }
                 } else
                 {
                     NotificationFactor.ErrorNotification("Thu hồi phiên thất bại");
                 }
-            } else
-            {
-                //@Todo
-                // Notify select session here
-                NotificationFactor.ErrorNotification("Thu hồi phiên thất bại");
             }
         }
 
@@ -378,7 +383,9 @@ namespace BocBang
 
         private void Btn_Save_Click(object sender, RibbonControlEventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             SaveDocumentToRemoteServer();
+            Cursor.Current = Cursors.Default;
         }
 
         private void SaveDocumentToRemoteServer(bool isNotify = true)
@@ -390,7 +397,7 @@ namespace BocBang
                 if (AppsSettings.GetInstance().isLogin == true)
                 {
                     Word.Document document = Globals.ThisAddIn.Application.ActiveDocument;
-                    string missingName;
+                    /*string missingName;
                     if (WordProcessingHelper.CheckRepresentativeList(document,
                         mRepresentativeForm.GetRepresentativeList(), out missingName) == false)
                     {
@@ -405,9 +412,8 @@ namespace BocBang
                             {
                                 System.Diagnostics.Process.Start(AppsSettings.GetInstance().ApiUrl + "/quan-ly-dai-bieu");
                             }
-                            return;
                         }
-                    }
+                    }*/
                     DocumentEntity documentEntity = WordProcessingHelper.ParsingDocument(
                         document, mRepresentativeForm.GetRepresentativeList());
                     documentEntity.sessionId = AppsSettings.GetInstance().Session.idSession;
@@ -451,6 +457,70 @@ namespace BocBang
                     Debug.WriteLine("Error while formating document");
                 }
             }
+        }
+
+        private void btn_ResetAll_Click(object sender, RibbonControlEventArgs e)
+        {
+            DialogResult dialogResult = CreateInformationDialog.CreateConfirmBoxWithTwoButton("" +
+                "Tổng hợp lại toàn bộ sẽ xóa toàn bộ thay đổi trên tệp tổng hợp và ghép lại các băng đã được kiểm duyệt. Bạn có muốn tiếp tục?", "Cảnh báo");
+            try
+            {
+                if (dialogResult == DialogResult.Yes && AppsSettings.GetInstance().Session != null)
+                {
+                    Debug.WriteLine("Xoa toan bo");
+                    ///1. Reset merged request
+
+                    bool resetMergedStatus = Request.ResetMergeDocument(AppsSettings.GetInstance().Session.idSession);
+
+                    if (resetMergedStatus == true)
+                    {
+                        ///Call remerged document
+                        //2. Goi ham merge doc
+                        AudioEntity entity = Request.GetParentAudioByIdSession(AppsSettings.GetInstance().Session.idSession);
+                        if (entity == null)
+                        {
+                            CreateInformationDialog.CreateWarningBox("Không tồn tại tệp âm thanh tổng hợp", "cảnh báo");
+                        }
+                        else
+                        {
+                            Boolean isRequestSuccessful = Request.RequestMerge(entity.idAudio);
+                            if (isRequestSuccessful == true)
+                            {
+                                NotificationFactor.InfoNotification("Tổng hợp biên bản thành công");
+                            }
+                            else
+                            {
+                                NotificationFactor.ErrorNotification("Tổng hợp biên bản thất bại");
+                            }
+                        }
+                        //3.Goi ham lay lai du lieu
+                        //Get document Entity
+                        DocumentEntity documentEntity = Request.getMergedDocument(AppsSettings.GetInstance().Session.idSession);
+                        //4.Clear current document
+                        AppsSettings.GetInstance().DocumentName = null; // To avoid save document when call the saveAs method
+                        Word.Document document = Globals.ThisAddIn.Application.ActiveDocument;
+                        WordProcessingHelper.SaveNewSessionDocument(AppsSettings.GetInstance().Session, document);
+                        WordProcessingHelper.CreateDocumentTitle(document, AppsSettings.GetInstance().Session);
+                        //4. day du lieu ra ma hinh
+                        WordProcessingHelper.InsertDataToMergedDocument(Globals.ThisAddIn.Application.ActiveDocument, documentEntity);
+                        AppsSettings.GetInstance().IsRepresentativeSplit = false;
+                        AppsSettings.GetInstance().DocumentName = document.Name;
+                    } else
+                    {
+                        NotificationFactor.ErrorNotification("Không thể tổng hợp lại biên bản");
+                    }
+                }
+            } catch (Exception ex)
+            {
+                NotificationFactor.ErrorNotification("Không thể tổng hợp lại biên bản");
+            }
+        }
+
+        private void button1_Click(object sender, RibbonControlEventArgs e)
+        {
+            Word.Document document = Globals.ThisAddIn.Application.ActiveDocument;
+
+            TextHelpers.GoToEndDocument(document);
         }
     }
 }

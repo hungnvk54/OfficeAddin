@@ -36,11 +36,13 @@
             this.label4 = new System.Windows.Forms.Label();
             this.BT_Cancel = new System.Windows.Forms.Button();
             this.BT_Save = new System.Windows.Forms.Button();
+            this.Btn_SelectFolder = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.Btn_SelectFolder);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.ConfigForm_TB_DataPath);
             this.groupBox1.Controls.Add(this.TB_ApiUrl);
@@ -116,6 +118,17 @@
             this.BT_Save.UseVisualStyleBackColor = true;
             this.BT_Save.Click += new System.EventHandler(this.BT_Save_Click);
             // 
+            // Btn_SelectFolder
+            // 
+            this.Btn_SelectFolder.Location = new System.Drawing.Point(876, 125);
+            this.Btn_SelectFolder.Name = "Btn_SelectFolder";
+            this.Btn_SelectFolder.Size = new System.Drawing.Size(47, 29);
+            this.Btn_SelectFolder.TabIndex = 12;
+            this.Btn_SelectFolder.Text = "...";
+            this.Btn_SelectFolder.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Btn_SelectFolder.UseVisualStyleBackColor = true;
+            this.Btn_SelectFolder.Click += new System.EventHandler(this.ConfigForm_BT_FolderBrower_Click);
+            // 
             // SettingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -145,5 +158,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox ConfigForm_TB_DataPath;
+        private System.Windows.Forms.Button Btn_SelectFolder;
     }
 }

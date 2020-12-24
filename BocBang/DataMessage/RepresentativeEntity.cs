@@ -7,6 +7,14 @@ namespace BocBang.DataMessage
 {
     public class RepresentativeEntity
     {
+        public RepresentativeEntity()
+        {
+            idRepresentative = 0;
+            name = "";
+            duty = "";
+            legislature = "";
+            fullTitle = "";
+        }
         public long idRepresentative
         {
             get;set;

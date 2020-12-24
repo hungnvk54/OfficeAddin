@@ -24,6 +24,7 @@ namespace BocBang.Common
         {
             foreach (Word.Paragraph para in doc.Paragraphs)
             {
+                int startRange = -1, endRange = -1;
                 string paragraphStyleName = ((Word.Style)para.get_Style()).NameLocal;
                 if (!Constants.TitleStyles.Contains(paragraphStyleName))
                 {
@@ -49,6 +50,21 @@ namespace BocBang.Common
             Word.Selection selection = Globals.ThisAddIn.Application.Selection;
             selection.TypeParagraph();
             selection.set_Style(doc.Styles[Constants.ContentStyle]);
+        }
+
+        public static void GoToEndDocument(Word.Document doc)
+        {
+            int endDocument = -1;
+            foreach (Word.Paragraph para in doc.Paragraphs)
+            {
+                Word.Range range = doc.Range(para.Range.Start, para.Range.End);
+                endDocument = para.Range.End;
+            }
+
+            if (endDocument > 0 )
+            {
+                Globals.ThisAddIn.Application.Selection.SetRange(endDocument - 1, endDocument - 1);
+            }
         }
     }
 }

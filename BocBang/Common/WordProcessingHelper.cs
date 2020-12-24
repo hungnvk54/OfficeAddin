@@ -39,7 +39,10 @@ namespace BocBang.Common
                     {
                         if (!para.Range.Text.Trim().Equals(""))
                         {
-                            documentParagraph.contents.Add(para.Range.Text);
+                            documentParagraph = new DocumentParagraph();
+                            documentesEntity.paragraphs.Add(documentParagraph);
+                            documentParagraph.belongTo = new RepresentativeEntity();
+                            documentParagraph.belongTo.fullTitle = para.Range.Text.Trim();
                         }
                     }
                 } else if (!Constants.TitleStyles.Contains(styleName))
@@ -120,9 +123,9 @@ namespace BocBang.Common
 
             ///Ten dai bieu
             Word.Style style = Globals.ThisAddIn.Application.ActiveDocument.Styles.Add(Constants.RerpesentativeStyle);
-
+            
             style.Font.Name = "Times New Roman";
-            style.Font.Size = 13;
+            style.Font.Size = 14;
             style.Font.Color = Word.WdColor.wdColorBlue;
             style.Font.Bold = -1;
             style.Font.Italic = -1;
@@ -136,6 +139,7 @@ namespace BocBang.Common
             style.Font.Name = "Times New Roman";
             style.Font.Size = 13;
             style.Font.Color = Word.WdColor.wdColorBlue;
+            style.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphJustify;
 
             style.ParagraphFormat.FirstLineIndent = Globals.ThisAddIn.Application.InchesToPoints(0.37f);
             style.ParagraphFormat.SpaceAfterAuto = 0;
@@ -210,7 +214,7 @@ namespace BocBang.Common
             selection.TypeParagraph();
 
             ///Buổi sáng ngày 07/12/2020
-            string meetingDate = string.Format("Buổi {0} ngày {1}", sessionEntity.meetingEntity.name, Utils.FormatDateTime(sessionEntity.meetingDay));
+            string meetingDate = string.Format("Buổi {0} ngày {1}", sessionEntity.meetingEntity.name.ToLower(), Utils.FormatDateTime(sessionEntity.meetingDay));
             selection.set_Style(document.Styles[Constants.MeetingTimeTitleStyle]);
             selection.TypeText(meetingDate);
             selection.TypeParagraph();
@@ -295,23 +299,71 @@ namespace BocBang.Common
             }
         }
 
+        public static void InsertDataToEndDocument(Word.Document document, DocumentEntity documentEntity)
+        {
+            TextHelpers.GoToEndDocument(document);
+            Word.Selection selection = Globals.ThisAddIn.Application.Selection;
+            foreach (DocumentParagraph documentParagraph in documentEntity.paragraphs)
+            {
+                if (documentParagraph.belongTo != null)
+                {
+                    selection.set_Style(document.Styles[Constants.RerpesentativeStyle]);
+
+                    if (documentParagraph.belongTo.fullTitle != null)
+                    {
+                        selection.TypeText(documentParagraph.belongTo.fullTitle);
+                    }
+                    else if (documentParagraph.belongTo.name != null &&
+                      documentParagraph.belongTo.duty != null)
+                    {
+                        selection.TypeText(Utils.FormatRepresentative(documentParagraph.belongTo.name, documentParagraph.belongTo.duty));
+                    }
+                    selection.TypeParagraph();
+                }
+
+                foreach (string content in documentParagraph.contents)
+                {
+                    if (!content.Trim().Equals(""))
+                    {
+                        selection.set_Style(document.Styles[Constants.ContentStyle]);
+                        selection.TypeText(content.Trim());
+                        selection.TypeParagraph();
+                    }
+                }
+            }
+        }
+
         public static void SaveNewSessionDocument(
             SessionsEntity sessionsEntity, Word.Document document)
         {
             ///Combine path: ConfigurePath/Sang_Datetime_SessionId
-            string name =  Utils.FormatDateTimeToSaveFile(sessionsEntity.meetingDay) + sessionsEntity.meetingEntity.name.Substring(0,1) + ".docx";
+            string name =  Utils.FormatDateTimeToSaveFile(sessionsEntity.meetingDay) + sessionsEntity.meetingEntity.name.Substring(0,1);
             string folderName = Utils.fromUtf8ToAscii(sessionsEntity.meetingEntity.name) + "_" +
                 sessionsEntity.meetingDay + "_" + sessionsEntity.idSession;
-            string[] combinePath = { AppsSettings.GetInstance().DataDir, folderName };
-            string[] combineFullPath = { AppsSettings.GetInstance().DataDir, folderName, name };
+            string[] combinePath = { AppsSettings.GetInstance().DataDir, sessionsEntity.activity.name, folderName };
+            string[] combineFullPath = { AppsSettings.GetInstance().DataDir, sessionsEntity.activity.name, folderName, name + ".docx" };
 
             if (!Directory.Exists(Path.Combine(combinePath)))
             {
                 Directory.CreateDirectory(Path.Combine(combinePath));
             }
+
+            ///Check file is exist or not
+            int version = 0;
+            while(File.Exists(Path.Combine(combineFullPath)) && version <= 10)
+            {
+                version = version + 1;
+                combineFullPath[combineFullPath.Length-1] = name + "_" + version + ".docx" ;
+            }
+
             string fillFileName = Path.Combine(combineFullPath);
             ///0.Save as other document
             document.SaveAs2(fillFileName);
+            foreach( Word.Document doc in Globals.ThisAddIn.Application.Documents)
+            {
+                Debug.WriteLine(doc.Name);
+            }
+            Debug.WriteLine(document.Name);
             ///1. Remove all document
             TextHelpers.RemoveAllContent(document);
         }
@@ -324,8 +376,8 @@ namespace BocBang.Common
             string name = representaiveName + ".docx";
             string folderName = Utils.fromUtf8ToAscii(sessionsEntity.meetingEntity.name) + "_" +
                 sessionsEntity.meetingDay + "_" + sessionsEntity.idSession;
-            string[] combinePath = { AppsSettings.GetInstance().DataDir, folderName };
-            string[] combineFullPath = { AppsSettings.GetInstance().DataDir, folderName, name };
+            string[] combinePath = { AppsSettings.GetInstance().DataDir, sessionsEntity.activity.name, folderName };
+            string[] combineFullPath = { AppsSettings.GetInstance().DataDir, sessionsEntity.activity.name, folderName, name };
 
             if (!Directory.Exists(Path.Combine(combinePath)))
             {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace BocBang.DataMessage
 {
@@ -12,6 +13,7 @@ namespace BocBang.DataMessage
             get;set;
         }
 
+        [JsonProperty(Required = Required.AllowNull)]
         public long idAudioParent
         {
             get;set;
@@ -21,27 +23,27 @@ namespace BocBang.DataMessage
         {
             get;set;
         }
-
+        [JsonProperty(Required = Required.AllowNull)]
         public UserEntity userHandle
         {
             get;set;
         }
-
-        public long statusReview
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public int? statusReview
         {
             get;set;
         }
-
+        [JsonProperty(Required = Required.AllowNull)]
         public string infoAudio
         {
             get;set;
         }
-
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public long isUpdate
         {
             get;set;
         }
-
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public long status
         {
             get;set;

@@ -522,6 +522,29 @@ namespace BocBang
             return false;
         }
 
+        public static DocumentEntity RequestMergeAndGetResult(long idAudioParent)
+        {
+            string url = AppsSettings.GetInstance().ApiUrl + "/reviewDocx/mergeFileEndGetResult";
+            Dictionary<string, object> listParameter = new Dictionary<string, object>();
+            listParameter.Add("idAudioParent", idAudioParent);
+
+            string result = SendPostJsonApplicationTypeRequest(url, listParameter);
+
+            try
+            {
+                DocumentMessage message = JsonConvert.DeserializeObject<DocumentMessage>(result);
+                if (message != null && message.status == Constants.RESPONSE_STATUS_SUCCESS)
+                {
+                    return message.data;
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            return null;
+        }
+
         public static AudioEntity GetParentAudioByIdSession(long sessionId)
         {
             string url = AppsSettings.GetInstance().ApiUrl + String.Format("/fileAudio/findAudioParrentByIdSession/{0}", sessionId);
@@ -716,6 +739,27 @@ namespace BocBang
                 }
                 
             }catch (Exception e)
+            {
+                return false;
+            }
+            return false;
+        }
+
+
+        public static bool ResetMergeDocument(long sessionId)
+        {
+            string url = AppsSettings.GetInstance().ApiUrl + String.Format("/reviewDocx/resetMergeFile/{0}", sessionId);
+            Dictionary<string, object> listParameter = new Dictionary<string, object>();
+            string postResult = SendGetRequest(url, listParameter);
+            try
+            {
+                BaseMessage message = JsonConvert.DeserializeObject<BaseMessage>(postResult);
+                if (message != null && message.status == Constants.RESPONSE_STATUS_SUCCESS)
+                {
+                    return true;
+                }
+            }
+            catch (Exception e)
             {
                 return false;
             }

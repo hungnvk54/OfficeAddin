@@ -36,8 +36,10 @@ namespace BocBang.AppForm
             {
                 DialogResult = DialogResult.No;
             }
+            Cursor.Current = Cursors.WaitCursor;
             GGGExportEntity gGGExportEntity = BuildExportEntity();
             exportResult = Request.ExportSessionToGGGSystem(gGGExportEntity);
+            Cursor.Current = Cursors.Default;
             if (exportResult == true)
             {
                 DialogResult = DialogResult.OK;
