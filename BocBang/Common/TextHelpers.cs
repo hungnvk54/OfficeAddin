@@ -22,16 +22,25 @@ namespace BocBang.Common
 
         public static void RemoveContent(Word.Document doc)
         {
+            int startRange = -1, endRange = -1;
             foreach (Word.Paragraph para in doc.Paragraphs)
             {
-                int startRange = -1, endRange = -1;
                 string paragraphStyleName = ((Word.Style)para.get_Style()).NameLocal;
                 if (!Constants.TitleStyles.Contains(paragraphStyleName))
                 {
-                    Word.Range range = doc.Range(para.Range.Start, para.Range.End);
-                    range.Delete();
+                    if (startRange == -1)
+                    {
+                        startRange = para.Range.Start;
+                    }
+                    endRange = para.Range.End;
                 }
-                Debug.WriteLine("Paragraph Start " + para.Range.Start + " Stop: " + para.Range.End);
+            }
+            Debug.WriteLine("Paragraph Start " + startRange + " Stop: " + endRange);
+
+            if (startRange <= endRange && startRange>=0 && endRange >= 0)
+            {
+                Word.Range range = doc.Range(startRange, endRange - 1);
+                range.Delete();
             }
 
             Word.Selection selection = Globals.ThisAddIn.Application.Selection;
@@ -41,9 +50,21 @@ namespace BocBang.Common
 
         public static void RemoveAllContent(Word.Document doc)
         {
+            int startRange = -1, endRange = -1;
             foreach (Word.Paragraph para in doc.Paragraphs)
             {
-                Word.Range range = doc.Range(para.Range.Start, para.Range.End);
+                if (startRange == -1)
+                {
+                    startRange = para.Range.Start;
+                }
+                endRange = para.Range.End;
+            }
+
+            Debug.WriteLine("Paragraph Start " + startRange + " Stop: " + endRange);
+
+            if (startRange <= endRange && startRange >= 0 && endRange >= 0)
+            {
+                Word.Range range = doc.Range(startRange, endRange - 1);
                 range.Delete();
             }
 

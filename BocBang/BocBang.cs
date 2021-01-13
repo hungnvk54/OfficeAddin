@@ -70,12 +70,12 @@ namespace BocBang
 
         private void Application_WindowActivate(Word.Document Doc, Word.Window Wn)
         {
-            Debug.WriteLine("Windown Active on this: " + Doc.Name + "  " +
-                Doc.Name.Equals(AppsSettings.GetInstance().DocumentName));
+            Debug.WriteLine("Windown Active on this: " + Doc.FullName + "  " +
+                Doc.FullName.Equals(AppsSettings.GetInstance().DocumentName));
             if (AppsSettings.GetInstance().isLogin &&
                 AppsSettings.GetInstance().Session != null &&
                 AppsSettings.GetInstance().DocumentName != null &&
-                Doc.Name.Equals(AppsSettings.GetInstance().DocumentName))
+                Doc.FullName.Equals(AppsSettings.GetInstance().DocumentName))
             {
                 ActiveControl();
             }
@@ -113,9 +113,9 @@ namespace BocBang
             if (AppsSettings.GetInstance().isLogin &&
                  AppsSettings.GetInstance().Session != null &&
                  AppsSettings.GetInstance().DocumentName != null &&
-                Doc.Name.Equals(AppsSettings.GetInstance().DocumentName))
+                Doc.FullName.Equals(AppsSettings.GetInstance().DocumentName))
             {
-                Debug.WriteLine(Doc.Name);
+                Debug.WriteLine(Doc.FullName);
                 SaveDocumentToRemoteServer();
             }
         }
@@ -190,7 +190,7 @@ namespace BocBang
                     ///Create default document
                     WordProcessingHelper.CreateDocumentTitle(document,
                         AppsSettings.GetInstance().Session);
-                    AppsSettings.GetInstance().DocumentName = document.Name;
+                    AppsSettings.GetInstance().DocumentName = document.FullName;
                     //Get document Entity
                     DocumentEntity documentEntity = Request.getMergedDocument(AppsSettings.GetInstance().Session.idSession);
                     WordProcessingHelper.InsertDataToMergedDocument(document, documentEntity);
@@ -504,7 +504,7 @@ namespace BocBang
                         //4. day du lieu ra ma hinh
                         WordProcessingHelper.InsertDataToMergedDocument(Globals.ThisAddIn.Application.ActiveDocument, documentEntity);
                         AppsSettings.GetInstance().IsRepresentativeSplit = false;
-                        AppsSettings.GetInstance().DocumentName = document.Name;
+                        AppsSettings.GetInstance().DocumentName = document.FullName;
                     } else
                     {
                         NotificationFactor.ErrorNotification("Không thể tổng hợp lại biên bản");

@@ -81,15 +81,7 @@ namespace BocBang.Common
         public static RepresentativeEntity FindRepresentative(List<RepresentativeEntity> representativeEntities,
             string representativeText)
         {
-            foreach (RepresentativeEntity entity in representativeEntities)
-            {
-                if (Utils.CompareRepresentative(representativeText, entity.name, entity.duty))
-                {
-                    return entity;
-                }
-            }
-
-            return null;
+            return representativeEntities.Find(x => Utils.CompareRepresentative(representativeText, x.name, x.duty));
         }
 
         public static void GenerateRepresentativeDocument(List<DocumentParagraph> representativeDocumentParagraph, Word.Document document)
@@ -153,6 +145,8 @@ namespace BocBang.Common
             style.Font.Bold = -1;
             style.Font.AllCaps = -1;
             style.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
+            style.ParagraphFormat.FirstLineIndent = Globals.ThisAddIn.Application.InchesToPoints(0);
+
 
             /// Ghi theo bang ghi am
             style = Globals.ThisAddIn.Application.ActiveDocument.Styles.Add(Constants.RecordingTitleStyle);
@@ -163,6 +157,8 @@ namespace BocBang.Common
             style.Font.Italic = -1;
             style.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
             style.ParagraphFormat.SpaceBefore = 3;
+            style.ParagraphFormat.FirstLineIndent = Globals.ThisAddIn.Application.InchesToPoints(0);
+
             ///Thoi gian hop
             style = Globals.ThisAddIn.Application.ActiveDocument.Styles.Add(Constants.MeetingTimeTitleStyle);
             style.Font.Name = "Times New Roman";
@@ -170,6 +166,8 @@ namespace BocBang.Common
             style.Font.Color = Word.WdColor.wdColorBlue;
             style.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
             style.ParagraphFormat.SpaceBefore = 3;
+            style.ParagraphFormat.FirstLineIndent = Globals.ThisAddIn.Application.InchesToPoints(0);
+
             ///Noi dung
             style = Globals.ThisAddIn.Application.ActiveDocument.Styles.Add(Constants.MeetingContentTitleStyle);
             style.Font.Name = "Times New Roman";
@@ -178,6 +176,8 @@ namespace BocBang.Common
             style.Font.Bold = -1;
             style.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
             style.ParagraphFormat.SpaceBefore = 6;
+            style.ParagraphFormat.FirstLineIndent = Globals.ThisAddIn.Application.InchesToPoints(0);
+
         }
 
         /// <summary>
@@ -359,11 +359,6 @@ namespace BocBang.Common
             string fillFileName = Path.Combine(combineFullPath);
             ///0.Save as other document
             document.SaveAs2(fillFileName);
-            foreach( Word.Document doc in Globals.ThisAddIn.Application.Documents)
-            {
-                Debug.WriteLine(doc.Name);
-            }
-            Debug.WriteLine(document.Name);
             ///1. Remove all document
             TextHelpers.RemoveAllContent(document);
         }
