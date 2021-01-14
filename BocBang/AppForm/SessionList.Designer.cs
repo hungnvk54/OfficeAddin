@@ -33,17 +33,17 @@ namespace BocBang.AppForm
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SessionList));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.DGV_SessionList = new System.Windows.Forms.DataGridView();
-            this.Session_Order = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Session_MeetingDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Session_Meeting = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Session_Group = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Session_Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Session_Activity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.RB_Activity = new System.Windows.Forms.RadioButton();
-            this.RB_Content = new System.Windows.Forms.RadioButton();
-            this.RB_SessionId = new System.Windows.Forms.RadioButton();
-            this.TB_SessionNumberSearch = new System.Windows.Forms.TextBox();
+            this.Btn_Reset = new System.Windows.Forms.Button();
+            this.Btn_Search = new System.Windows.Forms.Button();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.TB_Ky = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.TB_Khoa = new System.Windows.Forms.TextBox();
+            this.CB_HoatDong = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -87,6 +87,14 @@ namespace BocBang.AppForm
             this.LB_LabelNoiDung = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.helpProvider1 = new System.Windows.Forms.HelpProvider();
+            this.Session_Order = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Khoa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Ky = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Session_MeetingDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Session_Meeting = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Session_Group = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Session_Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Session_Activity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_SessionList)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -127,7 +135,7 @@ namespace BocBang.AppForm
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(7);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 97F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1600, 866);
             this.tableLayoutPanel1.TabIndex = 0;
@@ -141,140 +149,155 @@ namespace BocBang.AppForm
             this.DGV_SessionList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGV_SessionList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Session_Order,
+            this.Khoa,
+            this.Ky,
             this.Session_MeetingDate,
             this.Session_Meeting,
             this.Session_Group,
             this.Session_Number,
             this.Session_Activity});
             this.DGV_SessionList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DGV_SessionList.Location = new System.Drawing.Point(7, 104);
+            this.DGV_SessionList.Location = new System.Drawing.Point(7, 207);
             this.DGV_SessionList.Margin = new System.Windows.Forms.Padding(7);
             this.DGV_SessionList.MultiSelect = false;
             this.DGV_SessionList.Name = "DGV_SessionList";
             this.DGV_SessionList.RowHeadersVisible = false;
             this.DGV_SessionList.RowHeadersWidth = 51;
             this.DGV_SessionList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DGV_SessionList.Size = new System.Drawing.Size(1026, 755);
+            this.DGV_SessionList.Size = new System.Drawing.Size(1026, 652);
             this.DGV_SessionList.TabIndex = 1;
             this.DGV_SessionList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.On_CellClick);
             this.DGV_SessionList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.On_CellDoubleClick);
             this.DGV_SessionList.Scroll += new System.Windows.Forms.ScrollEventHandler(this.OnScrollChanged);
             this.DGV_SessionList.SelectionChanged += new System.EventHandler(this.OnRowSelectionChange);
             // 
-            // Session_Order
-            // 
-            this.Session_Order.FillWeight = 50F;
-            this.Session_Order.HeaderText = "STT";
-            this.Session_Order.MinimumWidth = 6;
-            this.Session_Order.Name = "Session_Order";
-            this.Session_Order.ReadOnly = true;
-            this.Session_Order.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Session_MeetingDate
-            // 
-            this.Session_MeetingDate.FillWeight = 80F;
-            this.Session_MeetingDate.HeaderText = "Ngày họp";
-            this.Session_MeetingDate.MinimumWidth = 6;
-            this.Session_MeetingDate.Name = "Session_MeetingDate";
-            this.Session_MeetingDate.ReadOnly = true;
-            this.Session_MeetingDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Session_Meeting
-            // 
-            this.Session_Meeting.FillWeight = 80F;
-            this.Session_Meeting.HeaderText = "Buổi họp";
-            this.Session_Meeting.MinimumWidth = 6;
-            this.Session_Meeting.Name = "Session_Meeting";
-            this.Session_Meeting.ReadOnly = true;
-            this.Session_Meeting.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Session_Group
-            // 
-            this.Session_Group.FillWeight = 80F;
-            this.Session_Group.HeaderText = "Tổ";
-            this.Session_Group.MinimumWidth = 6;
-            this.Session_Group.Name = "Session_Group";
-            this.Session_Group.ReadOnly = true;
-            this.Session_Group.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Session_Number
-            // 
-            this.Session_Number.FillWeight = 80F;
-            this.Session_Number.HeaderText = "Mã Phiên";
-            this.Session_Number.MinimumWidth = 6;
-            this.Session_Number.Name = "Session_Number";
-            this.Session_Number.ReadOnly = true;
-            this.Session_Number.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Session_Activity
-            // 
-            this.Session_Activity.HeaderText = "Hoạt động";
-            this.Session_Activity.MinimumWidth = 6;
-            this.Session_Activity.Name = "Session_Activity";
-            this.Session_Activity.ReadOnly = true;
-            this.Session_Activity.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.RB_Activity);
-            this.groupBox1.Controls.Add(this.RB_Content);
-            this.groupBox1.Controls.Add(this.RB_SessionId);
-            this.groupBox1.Controls.Add(this.TB_SessionNumberSearch);
+            this.groupBox1.Controls.Add(this.Btn_Reset);
+            this.groupBox1.Controls.Add(this.Btn_Search);
+            this.groupBox1.Controls.Add(this.dateTimePicker1);
+            this.groupBox1.Controls.Add(this.label14);
+            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.TB_Ky);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.TB_Khoa);
+            this.groupBox1.Controls.Add(this.CB_HoatDong);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(7, 7);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(7);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(7);
-            this.groupBox1.Size = new System.Drawing.Size(1026, 83);
+            this.groupBox1.Size = new System.Drawing.Size(1026, 186);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tìm kiếm";
             // 
-            // RB_Activity
+            // Btn_Reset
             // 
-            this.RB_Activity.AutoSize = true;
-            this.RB_Activity.Location = new System.Drawing.Point(703, 37);
-            this.RB_Activity.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.RB_Activity.Name = "RB_Activity";
-            this.RB_Activity.Size = new System.Drawing.Size(123, 29);
-            this.RB_Activity.TabIndex = 4;
-            this.RB_Activity.TabStop = true;
-            this.RB_Activity.Text = "Hoạt động";
-            this.RB_Activity.UseVisualStyleBackColor = true;
+            this.Btn_Reset.Location = new System.Drawing.Point(572, 134);
+            this.Btn_Reset.Name = "Btn_Reset";
+            this.Btn_Reset.Size = new System.Drawing.Size(149, 42);
+            this.Btn_Reset.TabIndex = 9;
+            this.Btn_Reset.Text = "Xóa";
+            this.Btn_Reset.UseVisualStyleBackColor = true;
+            this.Btn_Reset.Click += new System.EventHandler(this.Btn_Reset_Click);
             // 
-            // RB_Content
+            // Btn_Search
             // 
-            this.RB_Content.AutoSize = true;
-            this.RB_Content.Location = new System.Drawing.Point(551, 36);
-            this.RB_Content.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.RB_Content.Name = "RB_Content";
-            this.RB_Content.Size = new System.Drawing.Size(111, 29);
-            this.RB_Content.TabIndex = 3;
-            this.RB_Content.TabStop = true;
-            this.RB_Content.Text = "Nội dung";
-            this.RB_Content.UseVisualStyleBackColor = true;
+            this.Btn_Search.Location = new System.Drawing.Point(394, 134);
+            this.Btn_Search.Name = "Btn_Search";
+            this.Btn_Search.Size = new System.Drawing.Size(149, 42);
+            this.Btn_Search.TabIndex = 8;
+            this.Btn_Search.Text = "Tìm kiếm";
+            this.Btn_Search.UseVisualStyleBackColor = true;
+            this.Btn_Search.Click += new System.EventHandler(this.Btn_Search_Click);
             // 
-            // RB_SessionId
+            // dateTimePicker1
             // 
-            this.RB_SessionId.AutoSize = true;
-            this.RB_SessionId.Checked = true;
-            this.RB_SessionId.Location = new System.Drawing.Point(395, 36);
-            this.RB_SessionId.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.RB_SessionId.Name = "RB_SessionId";
-            this.RB_SessionId.Size = new System.Drawing.Size(114, 29);
-            this.RB_SessionId.TabIndex = 2;
-            this.RB_SessionId.TabStop = true;
-            this.RB_SessionId.Text = "Mã phiên";
-            this.RB_SessionId.UseVisualStyleBackColor = true;
+            this.dateTimePicker1.AllowDrop = true;
+            this.dateTimePicker1.CustomFormat = " ";
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker1.Location = new System.Drawing.Point(165, 81);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(200, 30);
+            this.dateTimePicker1.TabIndex = 4;
+            this.dateTimePicker1.Value = new System.DateTime(2021, 1, 14, 0, 0, 0, 0);
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
+            this.dateTimePicker1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyPress);
             // 
-            // TB_SessionNumberSearch
+            // label14
             // 
-            this.TB_SessionNumberSearch.Location = new System.Drawing.Point(13, 36);
-            this.TB_SessionNumberSearch.Margin = new System.Windows.Forms.Padding(7);
-            this.TB_SessionNumberSearch.Name = "TB_SessionNumberSearch";
-            this.TB_SessionNumberSearch.Size = new System.Drawing.Size(351, 30);
-            this.TB_SessionNumberSearch.TabIndex = 1;
-            this.TB_SessionNumberSearch.TextChanged += new System.EventHandler(this.TB_SessionNumberSearch_TextChanged);
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(13, 81);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(96, 25);
+            this.label14.TabIndex = 23;
+            this.label14.Text = "Ngày họp";
+            this.label14.Click += new System.EventHandler(this.label14_Click);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(587, 37);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(102, 25);
+            this.label13.TabIndex = 22;
+            this.label13.Text = "Hoạt động";
+            // 
+            // TB_Ky
+            // 
+            this.TB_Ky.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.TB_Ky.Location = new System.Drawing.Point(414, 34);
+            this.TB_Ky.Name = "TB_Ky";
+            this.TB_Ky.Size = new System.Drawing.Size(100, 30);
+            this.TB_Ky.TabIndex = 2;
+            this.TB_Ky.Text = "[1-99]";
+            this.TB_Ky.Enter += new System.EventHandler(this.Ky_MouseEnter);
+            this.TB_Ky.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.onKyKeyPress);
+            this.TB_Ky.Leave += new System.EventHandler(this.Ky_ForcusLeave);
+            this.TB_Ky.MouseEnter += new System.EventHandler(this.Ky_MouseEnter);
+            this.TB_Ky.MouseLeave += new System.EventHandler(this.Ky_MouseLeave);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(316, 37);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(92, 25);
+            this.label7.TabIndex = 21;
+            this.label7.Text = "Kỳ/Phiên";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 39);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(59, 25);
+            this.label1.TabIndex = 20;
+            this.label1.Text = "Khóa";
+            // 
+            // TB_Khoa
+            // 
+            this.TB_Khoa.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.TB_Khoa.Location = new System.Drawing.Point(165, 34);
+            this.TB_Khoa.Name = "TB_Khoa";
+            this.TB_Khoa.Size = new System.Drawing.Size(100, 30);
+            this.TB_Khoa.TabIndex = 1;
+            this.TB_Khoa.Text = "[1-99]";
+            this.TB_Khoa.Enter += new System.EventHandler(this.Khoa_MouseEnter);
+            this.TB_Khoa.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.onKhoaKeyPress);
+            this.TB_Khoa.Leave += new System.EventHandler(this.Khoa_ForcusLeave);
+            this.TB_Khoa.MouseEnter += new System.EventHandler(this.Khoa_MouseEnter);
+            this.TB_Khoa.MouseLeave += new System.EventHandler(this.Khoa_MouseLeave);
+            // 
+            // CB_HoatDong
+            // 
+            this.CB_HoatDong.FormattingEnabled = true;
+            this.CB_HoatDong.Location = new System.Drawing.Point(695, 34);
+            this.CB_HoatDong.Name = "CB_HoatDong";
+            this.CB_HoatDong.Size = new System.Drawing.Size(302, 33);
+            this.CB_HoatDong.TabIndex = 3;
             // 
             // groupBox2
             // 
@@ -326,7 +349,7 @@ namespace BocBang.AppForm
             this.tableLayoutPanel2.Controls.Add(this.RTB_NoiDung, 1, 9);
             this.tableLayoutPanel2.Controls.Add(this.LB_LabelNoiDung, 0, 9);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(1044, 102);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(1044, 205);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 10;
@@ -340,7 +363,7 @@ namespace BocBang.AppForm
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(552, 759);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(552, 656);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
             // panel11
@@ -702,7 +725,7 @@ namespace BocBang.AppForm
             this.RTB_NoiDung.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.RTB_NoiDung.Name = "RTB_NoiDung";
             this.RTB_NoiDung.ReadOnly = true;
-            this.RTB_NoiDung.Size = new System.Drawing.Size(393, 326);
+            this.RTB_NoiDung.Size = new System.Drawing.Size(393, 223);
             this.RTB_NoiDung.TabIndex = 10;
             this.RTB_NoiDung.Text = "";
             // 
@@ -722,6 +745,79 @@ namespace BocBang.AppForm
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "Loadmore.png");
+            // 
+            // Session_Order
+            // 
+            this.Session_Order.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Session_Order.FillWeight = 50F;
+            this.Session_Order.Frozen = true;
+            this.Session_Order.HeaderText = "STT";
+            this.Session_Order.MinimumWidth = 6;
+            this.Session_Order.Name = "Session_Order";
+            this.Session_Order.ReadOnly = true;
+            this.Session_Order.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Session_Order.Width = 70;
+            // 
+            // Khoa
+            // 
+            this.Khoa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Khoa.Frozen = true;
+            this.Khoa.HeaderText = "Khóa";
+            this.Khoa.MinimumWidth = 6;
+            this.Khoa.Name = "Khoa";
+            // 
+            // Ky
+            // 
+            this.Ky.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Ky.Frozen = true;
+            this.Ky.HeaderText = "Kỳ";
+            this.Ky.MinimumWidth = 6;
+            this.Ky.Name = "Ky";
+            this.Ky.Width = 50;
+            // 
+            // Session_MeetingDate
+            // 
+            this.Session_MeetingDate.FillWeight = 80F;
+            this.Session_MeetingDate.HeaderText = "Ngày họp";
+            this.Session_MeetingDate.MinimumWidth = 6;
+            this.Session_MeetingDate.Name = "Session_MeetingDate";
+            this.Session_MeetingDate.ReadOnly = true;
+            this.Session_MeetingDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Session_Meeting
+            // 
+            this.Session_Meeting.FillWeight = 80F;
+            this.Session_Meeting.HeaderText = "Buổi họp";
+            this.Session_Meeting.MinimumWidth = 6;
+            this.Session_Meeting.Name = "Session_Meeting";
+            this.Session_Meeting.ReadOnly = true;
+            this.Session_Meeting.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Session_Group
+            // 
+            this.Session_Group.FillWeight = 80F;
+            this.Session_Group.HeaderText = "Tổ";
+            this.Session_Group.MinimumWidth = 6;
+            this.Session_Group.Name = "Session_Group";
+            this.Session_Group.ReadOnly = true;
+            this.Session_Group.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Session_Number
+            // 
+            this.Session_Number.FillWeight = 80F;
+            this.Session_Number.HeaderText = "Mã Phiên";
+            this.Session_Number.MinimumWidth = 6;
+            this.Session_Number.Name = "Session_Number";
+            this.Session_Number.ReadOnly = true;
+            this.Session_Number.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Session_Activity
+            // 
+            this.Session_Activity.HeaderText = "Hoạt động";
+            this.Session_Activity.MinimumWidth = 6;
+            this.Session_Activity.Name = "Session_Activity";
+            this.Session_Activity.ReadOnly = true;
+            this.Session_Activity.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // SessionList
             // 
@@ -791,7 +887,6 @@ namespace BocBang.AppForm
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox TB_SessionNumberSearch;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView DGV_SessionList;
@@ -814,15 +909,6 @@ namespace BocBang.AppForm
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label LB_kyhop;
         private System.Windows.Forms.Label LB_term;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Session_Order;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Session_MeetingDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Session_Meeting;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Session_Group;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Session_Number;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Session_Activity;
-        private System.Windows.Forms.RadioButton RB_Content;
-        private System.Windows.Forms.RadioButton RB_SessionId;
-        private System.Windows.Forms.RadioButton RB_Activity;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Panel panel11;
         private System.Windows.Forms.Panel panel12;
@@ -845,5 +931,23 @@ namespace BocBang.AppForm
         private System.Windows.Forms.RichTextBox RTB_NoiDung;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.HelpProvider helpProvider1;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox TB_Ky;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox TB_Khoa;
+        private System.Windows.Forms.ComboBox CB_HoatDong;
+        private System.Windows.Forms.Button Btn_Search;
+        private System.Windows.Forms.Button Btn_Reset;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Session_Order;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Khoa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Ky;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Session_MeetingDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Session_Meeting;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Session_Group;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Session_Number;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Session_Activity;
     }
 }

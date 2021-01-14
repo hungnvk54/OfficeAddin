@@ -22,16 +22,9 @@ namespace BocBang
         private void BocBang_Load(object sender, RibbonUIEventArgs e)
         {
             Debug.WriteLine("This had beend loaded");
-            //Globals.ThisAddIn.Application.DocumentBeforeClose += Application_DocumentBeforeClose;
             Globals.ThisAddIn.Application.DocumentBeforeSave += Application_DocumentBeforeSave;
-            //Globals.ThisAddIn.Application.WindowSelectionChange += Application_WindowSelectionChange;
             Globals.ThisAddIn.Application.WindowActivate += Application_WindowActivate;
             ApplicationInitFormData();
-        }
-
-        private void SettingKeyTips()
-        {
-            this.Btn_ListSession.KeyTip = "G";
         }
 
         private void ActiveControl()
@@ -46,12 +39,33 @@ namespace BocBang
             this.Btn_SessionInfo.Enabled = true;
             this.Btn_Save.Enabled = true;
             this.btn_ResetAll.Enabled = true;
+            this.Btn_Close.Enabled = true;
+        }
+
+        private void Logout()
+        {
+            CloseCurrentSession();
+            // 1. Clear all session
+            AppsSettings.GetInstance().isLogin = false;
+            AppsSettings.GetInstance().UserInfo = null;
+            Btn_ListSession.Enabled = false;
+            DeactiveControl();
+        }
+
+        private void CloseCurrentSession()
+        {
+            WordProcessingHelper.CloseCurrentDocument(Globals.ThisAddIn.Application.ActiveDocument);
+            AppsSettings.GetInstance().IsRepresentativeSplit = false;
+            AppsSettings.GetInstance().DocumentName = null;
+            AppsSettings.GetInstance().Session = null;
+
+            //Close current document
+            DeactiveControl();
         }
 
         private void FocusMainDocument()
         {
             Globals.ThisAddIn.Application.ActiveWindow.SetFocus();
-            //Globals.ThisAddIn.Application.Activate();
         }
 
         private void DeactiveControl()
@@ -66,6 +80,7 @@ namespace BocBang
             this.Btn_SessionInfo.Enabled = false;
             this.Btn_Save.Enabled = false;
             this.btn_ResetAll.Enabled = false;
+            this.Btn_Close.Enabled = false;
         }
 
         private void Application_WindowActivate(Word.Document Doc, Word.Window Wn)
@@ -120,27 +135,32 @@ namespace BocBang
             }
         }
 
-        private void Application_DocumentBeforeClose(Word.Document Doc, ref bool Cancel)
-        {
-            
-        }
-
         private void On_Btn_Login(object sender, RibbonControlEventArgs e)
         {
-            DialogResult result = DialogResult.OK;
-            
-            result = mLoginForm.ShowDialog();
-            if (result == DialogResult.OK)
+            if (AppsSettings.GetInstance().isLogin == true)
             {
-                ///Create the Default document
-                Aplication_CreateDefault();
+                //Logout here
+                Logout();
+                this.Btn_Login.Label = StringResource.LOGIN_LABLE;
+            } else
+            {
+                //Open login form
+                DialogResult result = DialogResult.OK;
 
-                AppsSettings.GetInstance().isLogin = true;
-                Btn_ListSession.Enabled = true;
+                result = mLoginForm.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    ///Create the Default document
+                    Aplication_CreateDefault();
 
-                ///Create form
-                mSessionListForm = new SessionList();
-                mRepresentativeForm = new RepresentativeForm();
+                    AppsSettings.GetInstance().isLogin = true;
+                    Btn_ListSession.Enabled = true;
+
+                    ///Create form
+                    mSessionListForm = new SessionList();
+                    mRepresentativeForm = new RepresentativeForm();
+                    this.Btn_Login.Label = StringResource.LOGOUT_LABLE;
+                }
             }
         }
 
@@ -184,7 +204,7 @@ namespace BocBang
                 if (result == DialogResult.OK)
                 {
                     ///Create new document and save as new file
-                    Word.Document document = Globals.ThisAddIn.Application.ActiveDocument;
+                    Word.Document document = WordProcessingHelper.GetActiveDocument(); // Globals.ThisAddIn.Application.ActiveDocument;
                     AppsSettings.GetInstance().DocumentName = null; //To prevent save unknow document
                     WordProcessingHelper.SaveNewSessionDocument(AppsSettings.GetInstance().Session, document);
                     ///Create default document
@@ -516,11 +536,16 @@ namespace BocBang
             }
         }
 
-        private void button1_Click(object sender, RibbonControlEventArgs e)
+        private void button1_Click_1(object sender, RibbonControlEventArgs e)
         {
             Word.Document document = Globals.ThisAddIn.Application.ActiveDocument;
 
-            TextHelpers.GoToEndDocument(document);
+            WordProcessingHelper.CloseCurrentDocument(document);
+        }
+
+        private void Btn_Close_Click(object sender, RibbonControlEventArgs e)
+        {
+            CloseCurrentSession();
         }
     }
 }

@@ -107,77 +107,81 @@ namespace BocBang.Common
         public static void CreateDefaultDocumentStyle(Word.Document newDocument)
         {
             Word.PageSetup pageSetup = newDocument.PageSetup;
-            pageSetup.TopMargin = Globals.ThisAddIn.Application.InchesToPoints(0.95f);
-            pageSetup.BottomMargin = Globals.ThisAddIn.Application.InchesToPoints(0.79f);
-            pageSetup.LeftMargin = Globals.ThisAddIn.Application.InchesToPoints(0.98f);
-            pageSetup.RightMargin = Globals.ThisAddIn.Application.InchesToPoints(0.79f);
+            pageSetup.TopMargin = Globals.ThisAddIn.Application.CentimetersToPoints(2.4f);
+            pageSetup.BottomMargin = Globals.ThisAddIn.Application.CentimetersToPoints(2.0f);
+            pageSetup.LeftMargin = Globals.ThisAddIn.Application.CentimetersToPoints(2.5f);
+            pageSetup.RightMargin = Globals.ThisAddIn.Application.CentimetersToPoints(2.0f);
+            pageSetup.PaperSize = Word.WdPaperSize.wdPaperA4;
 
-
+            try
+            {
             ///Ten dai bieu
-            Word.Style style = Globals.ThisAddIn.Application.ActiveDocument.Styles.Add(Constants.RerpesentativeStyle);
+                Word.Style style = Globals.ThisAddIn.Application.ActiveDocument.Styles.Add(Constants.RerpesentativeStyle);
             
-            style.Font.Name = "Times New Roman";
-            style.Font.Size = 14;
-            style.Font.Color = Word.WdColor.wdColorBlue;
-            style.Font.Bold = -1;
-            style.Font.Italic = -1;
+                style.Font.Name = "Times New Roman";
+                style.Font.Size = 14;
+                style.Font.Color = Word.WdColor.wdColorBlue;
+                style.Font.Bold = -1;
+                style.Font.Italic = -1;
 
-            style.ParagraphFormat.FirstLineIndent = Globals.ThisAddIn.Application.InchesToPoints(0.37f);
-            style.ParagraphFormat.SpaceBefore = 6;
+                style.ParagraphFormat.FirstLineIndent = Globals.ThisAddIn.Application.CentimetersToPoints(1.0f);
+                style.ParagraphFormat.SpaceBefore = 6;
 
-            ///Loi phat bieu
-            style = Globals.ThisAddIn.Application.ActiveDocument.Styles.Add(Constants.ContentStyle);
+                ///Loi phat bieu
+                style = Globals.ThisAddIn.Application.ActiveDocument.Styles.Add(Constants.ContentStyle);
 
-            style.Font.Name = "Times New Roman";
-            style.Font.Size = 13;
-            style.Font.Color = Word.WdColor.wdColorBlue;
-            style.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphJustify;
+                style.Font.Name = "Times New Roman";
+                style.Font.Size = 13;
+                style.Font.Color = Word.WdColor.wdColorBlue;
+                style.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphJustify;
 
-            style.ParagraphFormat.FirstLineIndent = Globals.ThisAddIn.Application.InchesToPoints(0.37f);
-            style.ParagraphFormat.SpaceAfterAuto = 0;
-            style.ParagraphFormat.SpaceBefore = 0;
+                style.ParagraphFormat.FirstLineIndent = Globals.ThisAddIn.Application.CentimetersToPoints(1.0f);
+                style.ParagraphFormat.SpaceAfterAuto = 0;
+                style.ParagraphFormat.SpaceBefore = 0;
 
-            ///Tieu de bien ban
-            style = Globals.ThisAddIn.Application.ActiveDocument.Styles.Add(Constants.MeetingTitleStyle);
-            style.Font.Name = "Times New Roman";
-            style.Font.Size = 16;
-            style.Font.Color = Word.WdColor.wdColorBlue;
-            style.Font.Bold = -1;
-            style.Font.AllCaps = -1;
-            style.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
-            style.ParagraphFormat.FirstLineIndent = Globals.ThisAddIn.Application.InchesToPoints(0);
+                ///Tieu de bien ban
+                style = Globals.ThisAddIn.Application.ActiveDocument.Styles.Add(Constants.MeetingTitleStyle);
+                style.Font.Name = "Times New Roman";
+                style.Font.Size = 16;
+                style.Font.Color = Word.WdColor.wdColorBlue;
+                style.Font.Bold = -1;
+                style.Font.AllCaps = -1;
+                style.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                style.ParagraphFormat.FirstLineIndent = Globals.ThisAddIn.Application.InchesToPoints(0);
 
 
-            /// Ghi theo bang ghi am
-            style = Globals.ThisAddIn.Application.ActiveDocument.Styles.Add(Constants.RecordingTitleStyle);
+                /// Ghi theo bang ghi am
+                style = Globals.ThisAddIn.Application.ActiveDocument.Styles.Add(Constants.RecordingTitleStyle);
 
-            style.Font.Name = "Times New Roman";
-            style.Font.Size = 12;
-            style.Font.Color = Word.WdColor.wdColorBlue;
-            style.Font.Italic = -1;
-            style.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
-            style.ParagraphFormat.SpaceBefore = 3;
-            style.ParagraphFormat.FirstLineIndent = Globals.ThisAddIn.Application.InchesToPoints(0);
+                style.Font.Name = "Times New Roman";
+                style.Font.Size = 12;
+                style.Font.Color = Word.WdColor.wdColorBlue;
+                style.Font.Italic = -1;
+                style.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                style.ParagraphFormat.SpaceBefore = 3;
+                style.ParagraphFormat.FirstLineIndent = Globals.ThisAddIn.Application.InchesToPoints(0);
 
-            ///Thoi gian hop
-            style = Globals.ThisAddIn.Application.ActiveDocument.Styles.Add(Constants.MeetingTimeTitleStyle);
-            style.Font.Name = "Times New Roman";
-            style.Font.Size = 13;
-            style.Font.Color = Word.WdColor.wdColorBlue;
-            style.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
-            style.ParagraphFormat.SpaceBefore = 3;
-            style.ParagraphFormat.FirstLineIndent = Globals.ThisAddIn.Application.InchesToPoints(0);
+                ///Thoi gian hop
+                style = Globals.ThisAddIn.Application.ActiveDocument.Styles.Add(Constants.MeetingTimeTitleStyle);
+                style.Font.Name = "Times New Roman";
+                style.Font.Size = 13;
+                style.Font.Color = Word.WdColor.wdColorBlue;
+                style.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                style.ParagraphFormat.SpaceBefore = 3;
+                style.ParagraphFormat.FirstLineIndent = Globals.ThisAddIn.Application.InchesToPoints(0);
 
-            ///Noi dung
-            style = Globals.ThisAddIn.Application.ActiveDocument.Styles.Add(Constants.MeetingContentTitleStyle);
-            style.Font.Name = "Times New Roman";
-            style.Font.Size = 13;
-            style.Font.Color = Word.WdColor.wdColorBlue;
-            style.Font.Bold = -1;
-            style.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
-            style.ParagraphFormat.SpaceBefore = 6;
-            style.ParagraphFormat.FirstLineIndent = Globals.ThisAddIn.Application.InchesToPoints(0);
-
+                ///Noi dung
+                style = Globals.ThisAddIn.Application.ActiveDocument.Styles.Add(Constants.MeetingContentTitleStyle);
+                style.Font.Name = "Times New Roman";
+                style.Font.Size = 13;
+                style.Font.Color = Word.WdColor.wdColorBlue;
+                style.Font.Bold = -1;
+                style.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                style.ParagraphFormat.SpaceBefore = 6;
+            } catch (Exception e)
+            {
+                Debug.WriteLine("Cannot insert new style sheet to document. Errors message: " + e.Message );
+            }
         }
 
         /// <summary>
@@ -252,18 +256,21 @@ namespace BocBang.Common
                 selection.set_Style(document.Styles[Constants.ContentStyle]);
             }
 
-            if (AppsSettings.GetInstance().IsAddPageNumber == false)
+            try
             {
-                Globals.ThisAddIn.Application.ActiveWindow.ActivePane.View.SeekView = Microsoft.Office.Interop.Word.WdSeekView.wdSeekCurrentPageFooter;
-                Globals.ThisAddIn.Application.ActiveWindow.ActivePane.Selection.Paragraphs.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                Object CurrentPage = Word.WdFieldType.wdFieldPage;
-                Globals.ThisAddIn.Application.ActiveWindow.Selection.Fields.Add(Globals.ThisAddIn.Application.ActiveWindow.Selection.Range, ref CurrentPage);
-
-                Globals.ThisAddIn.Application.ActiveWindow.ActivePane.View.SeekView = Microsoft.Office.Interop.Word.WdSeekView.wdSeekMainDocument;
-
-                AppsSettings.GetInstance().IsAddPageNumber = true;
+                Globals.ThisAddIn.Application.ActiveDocument.Sections[1].Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range.Paragraphs.Last.Range.Delete();
+            } catch (Exception e)
+            {
+                Debug.WriteLine("Cannot remove footer. Errors code " + e.Message);
             }
-            
+
+            Globals.ThisAddIn.Application.ActiveWindow.ActivePane.View.SeekView = Microsoft.Office.Interop.Word.WdSeekView.wdSeekCurrentPageFooter;
+            Globals.ThisAddIn.Application.ActiveWindow.ActivePane.Selection.Paragraphs.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+            Object CurrentPage = Word.WdFieldType.wdFieldPage;
+            Globals.ThisAddIn.Application.ActiveWindow.Selection.Fields.Add(Globals.ThisAddIn.Application.ActiveWindow.Selection.Range, ref CurrentPage);
+
+            Globals.ThisAddIn.Application.ActiveWindow.ActivePane.View.SeekView = Microsoft.Office.Interop.Word.WdSeekView.wdSeekMainDocument;
+
         }
 
         public static void InsertDataToMergedDocument(Word.Document document, DocumentEntity documentEntity)
@@ -381,6 +388,27 @@ namespace BocBang.Common
             string fillFileName = Path.Combine(combineFullPath);
             ///0.Save as other document
             document.SaveAs2(Path.Combine(fillFileName));
+        }
+
+        public static void CloseCurrentDocument(
+            Word.Document document
+            )
+        {
+            document.Save();
+            document.Close();
+        }
+
+        public static Word.Document GetActiveDocument()
+        {
+            if (Globals.ThisAddIn.Application.Documents.Count > 0)
+            {
+                return Globals.ThisAddIn.Application.ActiveDocument;
+            } else
+            {
+                Globals.ThisAddIn.Application.Documents.Add();
+                WordProcessingHelper.CreateDefaultDocumentStyle(Globals.ThisAddIn.Application.ActiveDocument);
+                return Globals.ThisAddIn.Application.ActiveDocument;
+            }
         }
     }
 }

@@ -43,7 +43,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label1.Location = new System.Drawing.Point(340, 43);
+            this.label1.Location = new System.Drawing.Point(340, 55);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(108, 25);
             this.label1.TabIndex = 0;
@@ -53,7 +53,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label2.Location = new System.Drawing.Point(117, 107);
+            this.label2.Location = new System.Drawing.Point(100, 107);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(145, 25);
             this.label2.TabIndex = 1;
@@ -63,7 +63,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label3.Location = new System.Drawing.Point(117, 159);
+            this.label3.Location = new System.Drawing.Point(100, 159);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(93, 25);
             this.label3.TabIndex = 2;
@@ -72,7 +72,7 @@
             // Login_TB_UserName
             // 
             this.Login_TB_UserName.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Login_TB_UserName.Location = new System.Drawing.Point(263, 107);
+            this.Login_TB_UserName.Location = new System.Drawing.Point(284, 107);
             this.Login_TB_UserName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Login_TB_UserName.Name = "Login_TB_UserName";
             this.Login_TB_UserName.Size = new System.Drawing.Size(391, 30);
@@ -81,7 +81,7 @@
             // Login_TB_Password
             // 
             this.Login_TB_Password.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Login_TB_Password.Location = new System.Drawing.Point(263, 159);
+            this.Login_TB_Password.Location = new System.Drawing.Point(284, 159);
             this.Login_TB_Password.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Login_TB_Password.Name = "Login_TB_Password";
             this.Login_TB_Password.PasswordChar = '*';
@@ -91,10 +91,10 @@
             // Login_BT_Login
             // 
             this.Login_BT_Login.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.Login_BT_Login.Location = new System.Drawing.Point(263, 236);
+            this.Login_BT_Login.Location = new System.Drawing.Point(284, 236);
             this.Login_BT_Login.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Login_BT_Login.Name = "Login_BT_Login";
-            this.Login_BT_Login.Size = new System.Drawing.Size(124, 34);
+            this.Login_BT_Login.Size = new System.Drawing.Size(152, 41);
             this.Login_BT_Login.TabIndex = 6;
             this.Login_BT_Login.Text = "Đăng nhập";
             this.Login_BT_Login.UseVisualStyleBackColor = true;
@@ -104,7 +104,7 @@
             // 
             this.LoginForm_CB_SavePassword.AutoSize = true;
             this.LoginForm_CB_SavePassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.LoginForm_CB_SavePassword.Location = new System.Drawing.Point(263, 198);
+            this.LoginForm_CB_SavePassword.Location = new System.Drawing.Point(284, 198);
             this.LoginForm_CB_SavePassword.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LoginForm_CB_SavePassword.Name = "LoginForm_CB_SavePassword";
             this.LoginForm_CB_SavePassword.Size = new System.Drawing.Size(152, 29);

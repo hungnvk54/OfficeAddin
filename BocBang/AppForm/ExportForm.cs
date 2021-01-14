@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using BocBang.DataMessage;
+using BocBang.Common;
+
 
 namespace BocBang.AppForm
 {
@@ -38,6 +40,17 @@ namespace BocBang.AppForm
             }
             Cursor.Current = Cursors.WaitCursor;
             GGGExportEntity gGGExportEntity = BuildExportEntity();
+
+            if (!Utils.CheckActivityMapping(AppsSettings.GetInstance().Session.activity.type,
+                gGGExportEntity.activity.code))
+            {
+                DialogResult result = CreateInformationDialog.CreateConfirmBoxWithTwoButton("Bạn đang chọn không đúng loại hoạt động.\n" +
+                    "Bạn có muốn tiếp tục xuất bản?", "Xuất bản");
+                if (result != DialogResult.Yes)
+                {
+                    return;
+                }
+            }
             exportResult = Request.ExportSessionToGGGSystem(gGGExportEntity);
             Cursor.Current = Cursors.Default;
             if (exportResult == true)

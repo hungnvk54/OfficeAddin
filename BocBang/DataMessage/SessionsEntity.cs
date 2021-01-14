@@ -14,7 +14,7 @@ namespace BocBang.DataMessage
             get;set;
         }
 
-        public ActitityEntity activity
+        public ActivityEntity activity
         {
             get;set;
         }

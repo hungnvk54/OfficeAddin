@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BocBang.DataMessage
 {
-    public class ActitityEntity
+    public class ActivityEntity
     {
         public long updateAt
         {

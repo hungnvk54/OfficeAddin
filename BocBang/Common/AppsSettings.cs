@@ -125,10 +125,5 @@ namespace BocBang
         {
             get;set;
         }
-
-        public Boolean IsAddPageNumber
-        {
-            get;set;
-        }
     }
 }

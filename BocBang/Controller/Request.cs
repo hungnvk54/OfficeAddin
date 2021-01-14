@@ -342,16 +342,20 @@ namespace BocBang
         }
 
 
-        public static List<SessionsEntity> getListSession(long numberRecords)
+        public static List<SessionsEntity> getListSession(long numberRecords, string ky, string khoa, string hoatDong, string meetingDate)
         {
             Dictionary<string, object> listParameter = new Dictionary<string, object>();
 
             //meetingEntity
             listParameter.Add("meetingEntity", "");
             //activity
-            listParameter.Add("activity", "");
+            listParameter.Add("activity", hoatDong);
             //meetingDay
-            listParameter.Add("meetingDay", "");
+            listParameter.Add("meetingDay", meetingDate);
+            //Khoa
+            listParameter.Add("nationalAssembly", khoa);
+            //Khoa
+            listParameter.Add("meeting", ky);
             //page
             listParameter.Add("page", "1");
             //size
@@ -367,7 +371,7 @@ namespace BocBang
                 try
                 {
                     SessionMessage sessionMsg = JsonConvert.DeserializeObject<SessionMessage>(result);
-                    if (sessionMsg != null)
+                    if (sessionMsg != null && sessionMsg.data != null)
                     {
                         return sessionMsg.data.listSession;
                     }
@@ -764,6 +768,40 @@ namespace BocBang
                 return false;
             }
             return false;
+        }
+
+
+        public static List<ActivityEntity> ActivityEntitities()
+        {
+            string url = AppsSettings.GetInstance().ApiUrl + String.Format("/activity/all");
+            Dictionary<string, object> listParameter = new Dictionary<string, object>();
+
+            string result = Request.SendGetRequest(url, listParameter);
+
+            if (result.Equals(""))
+            {
+                return new List<ActivityEntity>();
+            }
+            else
+            {
+                try
+                {
+                    ActivityEntityMessage message = JsonConvert.DeserializeObject<ActivityEntityMessage>(result);
+
+                    if (message != null)
+                    {
+                        return message.data;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
         }
     }
 }

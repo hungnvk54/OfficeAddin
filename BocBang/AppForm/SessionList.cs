@@ -17,14 +17,35 @@ namespace BocBang.AppForm
     {
         private List<SessionsEntity> mListSession;
         private List<SessionsEntity> mSearchSession;
+        private List<ActivityEntity> mListActivity;
         private long mNumberOfRecords;
         private Boolean isLoad;
         private static long MAX_NUMBER_RECORD = 300;
         public SessionList()
         {
             InitializeComponent();
+            this.dateTimePicker1.Value = DateTime.Now;
+            dateTimePicker1.Format = DateTimePickerFormat.Custom;
+            dateTimePicker1.CustomFormat = " ";
             this.isLoad = false;
             this.mNumberOfRecords = 100;
+            LoadActivityCombobox();
+        }
+
+        private void LoadActivityCombobox()
+        {
+            mListActivity = Request.ActivityEntitities();
+            if (mListActivity == null)
+            {
+                mListActivity = new List<ActivityEntity>();
+            }
+
+            this.CB_HoatDong.Items.Add("Chọn Hoạt động");
+            this.CB_HoatDong.SelectedIndex = 0;
+            foreach (ActivityEntity activityEntity in mListActivity)
+            {
+                this.CB_HoatDong.Items.Add(activityEntity.name);
+            }
         }
 
         public DialogResult CustomDialogShow()
@@ -45,9 +66,9 @@ namespace BocBang.AppForm
             Cursor.Current = Cursors.Default;
         }
 
-        private  void LoadData(long numberOfRecords)
+        private void LoadData(long numberOfRecords)
         {
-            mListSession = Request.getListSession(mNumberOfRecords);
+            mListSession = Request.getListSession(mNumberOfRecords, "", "", "", "");
             mSearchSession = new List<SessionsEntity>();
         }
 
@@ -67,12 +88,14 @@ namespace BocBang.AppForm
                     row.Cells["Session_Meeting"].Value = entity.meetingEntity.name;
                     row.Cells["Session_Number"].Value = entity.idSession;
                     row.Cells["Session_Activity"].Value = entity.activity.name;
+                    row.Cells["Khoa"].Value = entity.nationalAssembly;
+                    row.Cells["Ky"].Value = entity.meeting;
                     if (entity.activityGroup != null)
                     {
                         row.Cells["Session_Group"].Value = entity.activityGroup.nameActivityGroup;
                     }
                 }
-            } catch( Exception e)
+            } catch (Exception e)
             {
                 CreateInformationDialog.CreateWarningBox(
                     "Có lỗi xảy ra trong quá trình tải danh sách tệp. Mã lỗi " + e.Message,
@@ -143,10 +166,10 @@ namespace BocBang.AppForm
             }
 
             this.RTB_NoiDung.Text = entity.contentMeeting;
-            
+
         }
 
-        private void TB_SessionNumberSearch_TextChanged(object sender, EventArgs e)
+        /*private void TB_SessionNumberSearch_TextChanged(object sender, EventArgs e)
         {
             this.mSearchSession.Clear();
             if (this.TB_SessionNumberSearch.Text.Trim().Equals(""))
@@ -166,9 +189,9 @@ namespace BocBang.AppForm
                     SearchByActivity(this.TB_SessionNumberSearch.Text);
                 }
             }
-        }
+        }*/
 
-        private void SearchByIdSession(string idSession)
+        /*private void SearchByIdSession(string idSession)
         {
             this.mSearchSession.Clear();
             foreach (SessionsEntity entity in this.mListSession)
@@ -179,7 +202,7 @@ namespace BocBang.AppForm
                 }
             }
             BindingData(this.mSearchSession);
-        }
+        }*/
 
         private void SearchByContent(string content)
         {
@@ -191,7 +214,7 @@ namespace BocBang.AppForm
 
                 Boolean isFound = true;
                 string contentInAsii = Utils.fromUtf8ToAscii(entity.contentMeeting).ToLower();
-                foreach(string word in listWord)
+                foreach (string word in listWord)
                 {
                     if (!contentInAsii.Contains(Utils.fromUtf8ToAscii(word).ToLower()))
                     {
@@ -295,7 +318,7 @@ namespace BocBang.AppForm
             if (totalHeight - this.DGV_SessionList.Height < this.DGV_SessionList.VerticalScrollingOffset)
             {
                 //Last row visible
-                if (this.mNumberOfRecords < MAX_NUMBER_RECORD && this.mSearchSession.Count<=0)
+                if (this.mNumberOfRecords < MAX_NUMBER_RECORD && this.mSearchSession.Count <= 0)
                 {
                     this.mNumberOfRecords = MAX_NUMBER_RECORD;
                     LoadData(this.mNumberOfRecords);
@@ -307,7 +330,7 @@ namespace BocBang.AppForm
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.F5)
+            if (e.KeyCode == Keys.F5)
             {
                 //Refreset data
                 this.fillingData();
@@ -315,6 +338,9 @@ namespace BocBang.AppForm
             } else if (e.KeyCode == Keys.Escape)
             {
                 DialogResult = DialogResult.Cancel;
+            } else if (e.KeyCode == Keys.Enter)
+            {
+                filterSession();
             }
         }
 
@@ -322,6 +348,126 @@ namespace BocBang.AppForm
         {
             this.Top = (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2;
             this.Left = (Screen.PrimaryScreen.Bounds.Width - this.Width) / 2;
+        }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void OnKeyPress(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back)
+            {
+                dateTimePicker1.Value = DateTimePicker.MinimumDateTime;
+            }
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            if (dateTimePicker1.Value == DateTimePicker.MinimumDateTime)
+            {
+                dateTimePicker1.Value = DateTime.Now; // This is required in order to show current month/year when user reopens the date popup.
+                dateTimePicker1.Format = DateTimePickerFormat.Custom;
+                dateTimePicker1.CustomFormat = " ";
+            }
+            else
+            {
+                dateTimePicker1.Format = DateTimePickerFormat.Short;
+            }
+        }
+
+        private void filterSession()
+        {
+            string term = this.TB_Khoa.Text.Trim() == "[1-99]"?"":this.TB_Khoa.Text.Trim();
+            string ky = this.TB_Ky.Text.Trim()== "[1-99]"?"":this.TB_Ky.Text.Trim();
+            string hoatDong = this.CB_HoatDong.SelectedIndex == 0 ? "" : this.mListActivity[this.CB_HoatDong.SelectedIndex - 1].idActivity.ToString();
+            string meetingDate = dateTimePicker1.Format != DateTimePickerFormat.Short ? "" : this.dateTimePicker1.Value.ToString("dd/MM/yyyy");
+
+            mSearchSession = Request.getListSession(MAX_NUMBER_RECORD, ky, term, hoatDong, meetingDate);
+            BindingData(mSearchSession);
+        }
+
+        private void Btn_Search_Click(object sender, EventArgs e)
+        {
+            filterSession();
+        }
+
+        private void Btn_Reset_Click(object sender, EventArgs e)
+        {
+            mSearchSession.Clear();
+            BindingData(mListSession);
+        }
+
+        private void onKhoaKeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) ||
+                ((TB_Khoa.Text.Trim().Length - TB_Khoa.SelectedText.Trim().Length)>=2) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private void onKyKeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) ||
+                ((TB_Ky.Text.Trim().Length - TB_Ky.SelectedText.Trim().Length) >= 2)&& !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void Ky_MouseLeave(object sender, EventArgs e)
+        {
+            if (!TB_Ky.Focused && TB_Ky.Text.Trim().Length == 0)
+            {
+                TB_Ky.Text = "[1-99]";
+                TB_Ky.ForeColor = SystemColors.GrayText;
+            }
+        }
+
+        private void Ky_MouseEnter(object sender, EventArgs e)
+        {
+            if (!TB_Ky.Focused && TB_Ky.Text.Trim() == "[1-99]")
+            {
+                TB_Ky.Text = "";
+                TB_Ky.ForeColor = SystemColors.WindowText;
+            }
+        }
+
+        private void Khoa_MouseEnter(object sender, EventArgs e)
+        {
+            if (!TB_Khoa.Focused && TB_Khoa.Text.Trim() == "[1-99]")
+            {
+                TB_Khoa.Text = "";
+                TB_Khoa.ForeColor = SystemColors.WindowText;
+            }
+        }
+
+        private void Khoa_MouseLeave(object sender, EventArgs e)
+        {
+            if (!TB_Khoa.Focused && TB_Khoa.Text.Trim().Length == 0)
+            {
+                TB_Khoa.Text = "[1-99]";
+                TB_Khoa.ForeColor = SystemColors.GrayText;
+            }
+        }
+
+        private void Khoa_ForcusLeave(object sender, EventArgs e)
+        {
+            if ( TB_Khoa.Text.Trim().Length == 0)
+            {
+                TB_Khoa.Text = "[1-99]";
+                TB_Khoa.ForeColor = SystemColors.GrayText;
+            }
+        }
+
+        private void Ky_ForcusLeave(object sender, EventArgs e)
+        {
+            if (TB_Ky.Text.Trim().Length == 0)
+            {
+                TB_Ky.Text = "[1-99]";
+                TB_Ky.ForeColor = SystemColors.GrayText;
+            }
         }
     }
 }

@@ -230,12 +230,14 @@
     <Compile Include="Common\NotificationFactor.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\CreateInformationDialog.cs" />
+    <Compile Include="Common\StringResource.cs" />
     <Compile Include="Common\TextHelpers.cs" />
     <Compile Include="Common\Utils.cs" />
     <Compile Include="Common\WordProcessingHelper.cs" />
     <Compile Include="Controller\Request.cs" />
     <Compile Include="CustomObject\CustomRange.cs" />
     <Compile Include="DataMessage\ActitityEntity.cs" />
+    <Compile Include="DataMessage\ActivityEntityMessage.cs" />
     <Compile Include="DataMessage\ActivityGroup.cs" />
     <Compile Include="DataMessage\AudioEntity.cs" />
     <Compile Include="DataMessage\AudioMessages.cs" />
@@ -377,6 +379,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Loadmore.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\close.jpg" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

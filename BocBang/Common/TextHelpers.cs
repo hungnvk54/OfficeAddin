@@ -42,10 +42,6 @@ namespace BocBang.Common
                 Word.Range range = doc.Range(startRange, endRange - 1);
                 range.Delete();
             }
-
-            Word.Selection selection = Globals.ThisAddIn.Application.Selection;
-            selection.TypeParagraph();
-            selection.set_Style(doc.Styles[Constants.ContentStyle]);
         }
 
         public static void RemoveAllContent(Word.Document doc)
@@ -64,13 +60,9 @@ namespace BocBang.Common
 
             if (startRange <= endRange && startRange >= 0 && endRange >= 0)
             {
-                Word.Range range = doc.Range(startRange, endRange - 1);
+                Word.Range range = doc.Range(startRange, endRange );
                 range.Delete();
             }
-
-            Word.Selection selection = Globals.ThisAddIn.Application.Selection;
-            selection.TypeParagraph();
-            selection.set_Style(doc.Styles[Constants.ContentStyle]);
         }
 
         public static void GoToEndDocument(Word.Document doc)

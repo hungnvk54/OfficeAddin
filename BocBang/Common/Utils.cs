@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using BocBang.DataMessage;
+using System.Collections.Generic;
 
 namespace BocBang
 {
@@ -189,6 +191,43 @@ namespace BocBang
             }
 
             return dateTime;
+        }
+
+        public static bool CheckActivityMapping(long bocbang_code, string ggg_code)
+        {
+            // Code in 3g system
+            //Kỳ họp Quốc hội                                       QH
+            //	Phiên họp tổ (PHT)                                  TO
+            //Phiên họp UBTVQH                                      TV
+            //Hội nghị ĐBQH chuyên trách                            HN
+            //Phiên họp của HĐDT, các Ủy ban của Quốc hội           UB
+
+            ///Code in bocbang
+            /// public static final int TYPE_HOI_TRUONG = 1;
+
+            ///public static final int TYPE_TO = 2;
+
+            ////public static final int TYPE_HN_DBQH_CHUYEN_TRACH = 4;
+
+            ///public static final int TYPE_KHAC = 5;
+
+            ///public static final int TYPE_THUONG_VU = 3;
+
+            Dictionary<long, string> mapping = new Dictionary<long, string>();
+            mapping.Add(1, "QH");
+            mapping.Add(2, "TO");
+            mapping.Add(3, "TV");
+            mapping.Add(4, "HN");
+            mapping.Add(5, "KHAC");
+
+            if (mapping.ContainsKey(bocbang_code) &&
+                mapping[bocbang_code] == ggg_code)
+            {
+                return true;
+            } else
+            {
+                return !mapping.ContainsKey(bocbang_code);
+            }
         }
     }
 }
