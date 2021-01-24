@@ -174,6 +174,17 @@ namespace BocBang
                 }
             }
 
+            try
+            {
+                double dateTimeFromEpoch = double.Parse(dateTime)/1000;
+                DateTime start = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc); //from start epoch time
+                start.AddSeconds(dateTimeFromEpoch);
+                return start.ToString("dd/MM/yyyy");
+            } catch (Exception e)
+            {
+                ///
+            }
+
             return dateTime;
         }
 

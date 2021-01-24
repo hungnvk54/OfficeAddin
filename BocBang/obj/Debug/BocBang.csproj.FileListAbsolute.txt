@@ -33,7 +33,6 @@ D:\DATA\03-DuAn\04-STT\05-WordAddin\OfficeAddin\BocBang\bin\Debug\CredentialMana
 D:\DATA\03-DuAn\04-STT\05-WordAddin\OfficeAddin\BocBang\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
 D:\DATA\03-DuAn\04-STT\05-WordAddin\OfficeAddin\BocBang\bin\Debug\Newtonsoft.Json.dll
 D:\DATA\03-DuAn\04-STT\05-WordAddin\OfficeAddin\BocBang\bin\Debug\Newtonsoft.Json.xml
-D:\DATA\03-DuAn\04-STT\05-WordAddin\OfficeAddin\BocBang\obj\Debug\BocBang.csprojAssemblyReference.cache
 D:\DATA\03-DuAn\04-STT\05-WordAddin\OfficeAddin\BocBang\obj\Debug\BocBang.AppForm.CustomNotificationForm.resources
 D:\DATA\03-DuAn\04-STT\05-WordAddin\OfficeAddin\BocBang\obj\Debug\BocBang.AppForm.ExportForm.resources
 D:\DATA\03-DuAn\04-STT\05-WordAddin\OfficeAddin\BocBang\obj\Debug\BocBang.AppForm.ListAudioForm.resources
@@ -50,3 +49,4 @@ D:\DATA\03-DuAn\04-STT\05-WordAddin\OfficeAddin\BocBang\obj\Debug\BocBang.csproj
 D:\DATA\03-DuAn\04-STT\05-WordAddin\OfficeAddin\BocBang\obj\Debug\BocBang.csproj.CopyComplete
 D:\DATA\03-DuAn\04-STT\05-WordAddin\OfficeAddin\BocBang\obj\Debug\BocBang.dll
 D:\DATA\03-DuAn\04-STT\05-WordAddin\OfficeAddin\BocBang\obj\Debug\BocBang.pdb
+D:\DATA\03-DuAn\04-STT\05-WordAddin\OfficeAddin\BocBang\obj\Debug\BocBang.csprojAssemblyReference.cache

@@ -394,8 +394,11 @@ namespace BocBang.Common
             Word.Document document
             )
         {
-            document.Save();
-            document.Close();
+            if (document.FullName != document.Name)
+            {
+                document.Save();
+                document.Close();
+            }
         }
 
         public static Word.Document GetActiveDocument()

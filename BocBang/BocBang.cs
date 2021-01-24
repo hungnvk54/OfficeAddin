@@ -49,12 +49,17 @@ namespace BocBang
             AppsSettings.GetInstance().isLogin = false;
             AppsSettings.GetInstance().UserInfo = null;
             Btn_ListSession.Enabled = false;
-            DeactiveControl();
         }
 
         private void CloseCurrentSession()
         {
-            WordProcessingHelper.CloseCurrentDocument(Globals.ThisAddIn.Application.ActiveDocument);
+            try
+            {
+                WordProcessingHelper.CloseCurrentDocument(Globals.ThisAddIn.Application.ActiveDocument);
+            } catch (Exception e)
+            {
+                Debug.WriteLine("Document has been closed: " + e.Message);
+            }
             AppsSettings.GetInstance().IsRepresentativeSplit = false;
             AppsSettings.GetInstance().DocumentName = null;
             AppsSettings.GetInstance().Session = null;
