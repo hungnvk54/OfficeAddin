@@ -668,7 +668,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:BocBangInstaller"
         "ProductCode" = "8:{27B7E51F-D80F-44CC-9CF8-377C7B52E4CC}"
-        "PackageCode" = "8:{CA95CE3A-9B74-4254-AA43-129491D71000}"
+        "PackageCode" = "8:{7D3AB1EF-D65C-4BC5-84FC-DDBACE9312B1}"
         "UpgradeCode" = "8:{8C3BBAFD-4004-4757-B16B-519D2D2B7928}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"

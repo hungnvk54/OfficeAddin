@@ -37,28 +37,28 @@ namespace BocBang
         {
             this.tab1 = this.Factory.CreateRibbonTab();
             this.G_Control = this.Factory.CreateRibbonGroup();
-            this.G_Session = this.Factory.CreateRibbonGroup();
-            this.group1 = this.Factory.CreateRibbonGroup();
-            this.G_Reperentative = this.Factory.CreateRibbonGroup();
-            this.group3 = this.Factory.CreateRibbonGroup();
-            this.G_3G = this.Factory.CreateRibbonGroup();
-            this.group2 = this.Factory.CreateRibbonGroup();
-            this.group4 = this.Factory.CreateRibbonGroup();
-            this.group5 = this.Factory.CreateRibbonGroup();
             this.Btn_Setting = this.Factory.CreateRibbonButton();
             this.Btn_Login = this.Factory.CreateRibbonButton();
+            this.G_Session = this.Factory.CreateRibbonGroup();
             this.Btn_ListSession = this.Factory.CreateRibbonButton();
             this.Btn_SessionInfo = this.Factory.CreateRibbonButton();
+            this.group1 = this.Factory.CreateRibbonGroup();
             this.Btn_ListAudio = this.Factory.CreateRibbonButton();
             this.Btn_Merge = this.Factory.CreateRibbonButton();
+            this.G_Reperentative = this.Factory.CreateRibbonGroup();
             this.Btn_Insert = this.Factory.CreateRibbonButton();
             this.Btn_Spit = this.Factory.CreateRibbonButton();
+            this.group3 = this.Factory.CreateRibbonGroup();
             this.Btn_Save = this.Factory.CreateRibbonButton();
+            this.G_3G = this.Factory.CreateRibbonGroup();
             this.Btn_Export = this.Factory.CreateRibbonButton();
             this.Btn_Undo = this.Factory.CreateRibbonButton();
+            this.group2 = this.Factory.CreateRibbonGroup();
             this.Btn_FormatRepresentative = this.Factory.CreateRibbonButton();
             this.button2 = this.Factory.CreateRibbonButton();
+            this.group4 = this.Factory.CreateRibbonGroup();
             this.btn_ResetAll = this.Factory.CreateRibbonButton();
+            this.group5 = this.Factory.CreateRibbonGroup();
             this.Btn_Close = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.G_Control.SuspendLayout();
@@ -94,59 +94,6 @@ namespace BocBang
             this.G_Control.Label = "Điều khiển";
             this.G_Control.Name = "G_Control";
             // 
-            // G_Session
-            // 
-            this.G_Session.Items.Add(this.Btn_ListSession);
-            this.G_Session.Items.Add(this.Btn_SessionInfo);
-            this.G_Session.Label = "Tác nghiệp";
-            this.G_Session.Name = "G_Session";
-            // 
-            // group1
-            // 
-            this.group1.Items.Add(this.Btn_ListAudio);
-            this.group1.Items.Add(this.Btn_Merge);
-            this.group1.Label = "Danh sách băng";
-            this.group1.Name = "group1";
-            // 
-            // G_Reperentative
-            // 
-            this.G_Reperentative.Items.Add(this.Btn_Insert);
-            this.G_Reperentative.Items.Add(this.Btn_Spit);
-            this.G_Reperentative.Label = "Đại biểu";
-            this.G_Reperentative.Name = "G_Reperentative";
-            // 
-            // group3
-            // 
-            this.group3.Items.Add(this.Btn_Save);
-            this.group3.Label = "Tệp";
-            this.group3.Name = "group3";
-            // 
-            // G_3G
-            // 
-            this.G_3G.Items.Add(this.Btn_Export);
-            this.G_3G.Items.Add(this.Btn_Undo);
-            this.G_3G.Label = "3G";
-            this.G_3G.Name = "G_3G";
-            // 
-            // group2
-            // 
-            this.group2.Items.Add(this.Btn_FormatRepresentative);
-            this.group2.Items.Add(this.button2);
-            this.group2.Label = "Định dạng";
-            this.group2.Name = "group2";
-            // 
-            // group4
-            // 
-            this.group4.Items.Add(this.btn_ResetAll);
-            this.group4.Label = "Tổng hợp lại";
-            this.group4.Name = "group4";
-            // 
-            // group5
-            // 
-            this.group5.Items.Add(this.Btn_Close);
-            this.group5.Label = "Tệp";
-            this.group5.Name = "group5";
-            // 
             // Btn_Setting
             // 
             this.Btn_Setting.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -165,6 +112,13 @@ namespace BocBang
             this.Btn_Login.Name = "Btn_Login";
             this.Btn_Login.ShowImage = true;
             this.Btn_Login.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.On_Btn_Login);
+            // 
+            // G_Session
+            // 
+            this.G_Session.Items.Add(this.Btn_ListSession);
+            this.G_Session.Items.Add(this.Btn_SessionInfo);
+            this.G_Session.Label = "Tác nghiệp";
+            this.G_Session.Name = "G_Session";
             // 
             // Btn_ListSession
             // 
@@ -186,6 +140,13 @@ namespace BocBang
             this.Btn_SessionInfo.ShowImage = true;
             this.Btn_SessionInfo.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Btn_SessionInfo_Click);
             // 
+            // group1
+            // 
+            this.group1.Items.Add(this.Btn_ListAudio);
+            this.group1.Items.Add(this.Btn_Merge);
+            this.group1.Label = "Danh sách băng";
+            this.group1.Name = "group1";
+            // 
             // Btn_ListAudio
             // 
             this.Btn_ListAudio.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -205,6 +166,13 @@ namespace BocBang
             this.Btn_Merge.Name = "Btn_Merge";
             this.Btn_Merge.ShowImage = true;
             this.Btn_Merge.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Btn_Merge_Click);
+            // 
+            // G_Reperentative
+            // 
+            this.G_Reperentative.Items.Add(this.Btn_Insert);
+            this.G_Reperentative.Items.Add(this.Btn_Spit);
+            this.G_Reperentative.Label = "Đại biểu";
+            this.G_Reperentative.Name = "G_Reperentative";
             // 
             // Btn_Insert
             // 
@@ -226,6 +194,12 @@ namespace BocBang
             this.Btn_Spit.ShowImage = true;
             this.Btn_Spit.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Btn_Spit_Click);
             // 
+            // group3
+            // 
+            this.group3.Items.Add(this.Btn_Save);
+            this.group3.Label = "Tệp";
+            this.group3.Name = "group3";
+            // 
             // Btn_Save
             // 
             this.Btn_Save.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -235,6 +209,13 @@ namespace BocBang
             this.Btn_Save.Name = "Btn_Save";
             this.Btn_Save.ShowImage = true;
             this.Btn_Save.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Btn_Save_Click);
+            // 
+            // G_3G
+            // 
+            this.G_3G.Items.Add(this.Btn_Export);
+            this.G_3G.Items.Add(this.Btn_Undo);
+            this.G_3G.Label = "3G";
+            this.G_3G.Name = "G_3G";
             // 
             // Btn_Export
             // 
@@ -256,6 +237,13 @@ namespace BocBang
             this.Btn_Undo.ShowImage = true;
             this.Btn_Undo.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Btn_Undo_Click);
             // 
+            // group2
+            // 
+            this.group2.Items.Add(this.Btn_FormatRepresentative);
+            this.group2.Items.Add(this.button2);
+            this.group2.Label = "Định dạng";
+            this.group2.Name = "group2";
+            // 
             // Btn_FormatRepresentative
             // 
             this.Btn_FormatRepresentative.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -274,6 +262,12 @@ namespace BocBang
             this.button2.ShowImage = true;
             this.button2.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Btn_ContentFormat_Click);
             // 
+            // group4
+            // 
+            this.group4.Items.Add(this.btn_ResetAll);
+            this.group4.Label = "Tổng hợp lại";
+            this.group4.Name = "group4";
+            // 
             // btn_ResetAll
             // 
             this.btn_ResetAll.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -283,6 +277,12 @@ namespace BocBang
             this.btn_ResetAll.Name = "btn_ResetAll";
             this.btn_ResetAll.ShowImage = true;
             this.btn_ResetAll.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btn_ResetAll_Click);
+            // 
+            // group5
+            // 
+            this.group5.Items.Add(this.Btn_Close);
+            this.group5.Label = "Tệp";
+            this.group5.Name = "group5";
             // 
             // Btn_Close
             // 

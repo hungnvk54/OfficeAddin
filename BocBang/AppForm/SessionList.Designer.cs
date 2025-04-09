@@ -33,6 +33,14 @@ namespace BocBang.AppForm
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SessionList));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.DGV_SessionList = new System.Windows.Forms.DataGridView();
+            this.Session_Order = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Khoa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Ky = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Session_MeetingDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Session_Meeting = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Session_Group = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Session_Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Session_Activity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Btn_Reset = new System.Windows.Forms.Button();
             this.Btn_Search = new System.Windows.Forms.Button();
@@ -87,14 +95,6 @@ namespace BocBang.AppForm
             this.LB_LabelNoiDung = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.helpProvider1 = new System.Windows.Forms.HelpProvider();
-            this.Session_Order = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Khoa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Ky = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Session_MeetingDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Session_Meeting = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Session_Group = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Session_Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Session_Activity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_SessionList)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -171,6 +171,80 @@ namespace BocBang.AppForm
             this.DGV_SessionList.Scroll += new System.Windows.Forms.ScrollEventHandler(this.OnScrollChanged);
             this.DGV_SessionList.SelectionChanged += new System.EventHandler(this.OnRowSelectionChange);
             // 
+            // Session_Order
+            // 
+            this.Session_Order.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Session_Order.FillWeight = 50F;
+            this.Session_Order.Frozen = true;
+            this.Session_Order.HeaderText = "STT";
+            this.Session_Order.MinimumWidth = 6;
+            this.Session_Order.Name = "Session_Order";
+            this.Session_Order.ReadOnly = true;
+            this.Session_Order.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Session_Order.Width = 70;
+            // 
+            // Khoa
+            // 
+            this.Khoa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Khoa.Frozen = true;
+            this.Khoa.HeaderText = "Khóa";
+            this.Khoa.MinimumWidth = 6;
+            this.Khoa.Name = "Khoa";
+            this.Khoa.Width = 125;
+            // 
+            // Ky
+            // 
+            this.Ky.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Ky.Frozen = true;
+            this.Ky.HeaderText = "Kỳ";
+            this.Ky.MinimumWidth = 6;
+            this.Ky.Name = "Ky";
+            this.Ky.Width = 50;
+            // 
+            // Session_MeetingDate
+            // 
+            this.Session_MeetingDate.FillWeight = 80F;
+            this.Session_MeetingDate.HeaderText = "Ngày họp";
+            this.Session_MeetingDate.MinimumWidth = 6;
+            this.Session_MeetingDate.Name = "Session_MeetingDate";
+            this.Session_MeetingDate.ReadOnly = true;
+            this.Session_MeetingDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Session_Meeting
+            // 
+            this.Session_Meeting.FillWeight = 80F;
+            this.Session_Meeting.HeaderText = "Buổi họp";
+            this.Session_Meeting.MinimumWidth = 6;
+            this.Session_Meeting.Name = "Session_Meeting";
+            this.Session_Meeting.ReadOnly = true;
+            this.Session_Meeting.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Session_Group
+            // 
+            this.Session_Group.FillWeight = 80F;
+            this.Session_Group.HeaderText = "Tổ";
+            this.Session_Group.MinimumWidth = 6;
+            this.Session_Group.Name = "Session_Group";
+            this.Session_Group.ReadOnly = true;
+            this.Session_Group.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Session_Number
+            // 
+            this.Session_Number.FillWeight = 80F;
+            this.Session_Number.HeaderText = "Mã Phiên";
+            this.Session_Number.MinimumWidth = 6;
+            this.Session_Number.Name = "Session_Number";
+            this.Session_Number.ReadOnly = true;
+            this.Session_Number.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Session_Activity
+            // 
+            this.Session_Activity.HeaderText = "Hoạt động";
+            this.Session_Activity.MinimumWidth = 6;
+            this.Session_Activity.Name = "Session_Activity";
+            this.Session_Activity.ReadOnly = true;
+            this.Session_Activity.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.Btn_Reset);
@@ -218,7 +292,7 @@ namespace BocBang.AppForm
             this.dateTimePicker1.AllowDrop = true;
             this.dateTimePicker1.CustomFormat = " ";
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(165, 81);
+            this.dateTimePicker1.Location = new System.Drawing.Point(132, 81);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 30);
             this.dateTimePicker1.TabIndex = 4;
@@ -239,7 +313,7 @@ namespace BocBang.AppForm
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(587, 37);
+            this.label13.Location = new System.Drawing.Point(484, 37);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(102, 25);
             this.label13.TabIndex = 22;
@@ -248,7 +322,7 @@ namespace BocBang.AppForm
             // TB_Ky
             // 
             this.TB_Ky.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.TB_Ky.Location = new System.Drawing.Point(414, 34);
+            this.TB_Ky.Location = new System.Drawing.Point(363, 33);
             this.TB_Ky.Name = "TB_Ky";
             this.TB_Ky.Size = new System.Drawing.Size(100, 30);
             this.TB_Ky.TabIndex = 2;
@@ -262,7 +336,7 @@ namespace BocBang.AppForm
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(316, 37);
+            this.label7.Location = new System.Drawing.Point(265, 36);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(92, 25);
             this.label7.TabIndex = 21;
@@ -280,7 +354,7 @@ namespace BocBang.AppForm
             // TB_Khoa
             // 
             this.TB_Khoa.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.TB_Khoa.Location = new System.Drawing.Point(165, 34);
+            this.TB_Khoa.Location = new System.Drawing.Point(132, 34);
             this.TB_Khoa.Name = "TB_Khoa";
             this.TB_Khoa.Size = new System.Drawing.Size(100, 30);
             this.TB_Khoa.TabIndex = 1;
@@ -294,9 +368,9 @@ namespace BocBang.AppForm
             // CB_HoatDong
             // 
             this.CB_HoatDong.FormattingEnabled = true;
-            this.CB_HoatDong.Location = new System.Drawing.Point(695, 34);
+            this.CB_HoatDong.Location = new System.Drawing.Point(592, 34);
             this.CB_HoatDong.Name = "CB_HoatDong";
-            this.CB_HoatDong.Size = new System.Drawing.Size(302, 33);
+            this.CB_HoatDong.Size = new System.Drawing.Size(195, 33);
             this.CB_HoatDong.TabIndex = 3;
             // 
             // groupBox2
@@ -745,79 +819,6 @@ namespace BocBang.AppForm
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "Loadmore.png");
-            // 
-            // Session_Order
-            // 
-            this.Session_Order.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Session_Order.FillWeight = 50F;
-            this.Session_Order.Frozen = true;
-            this.Session_Order.HeaderText = "STT";
-            this.Session_Order.MinimumWidth = 6;
-            this.Session_Order.Name = "Session_Order";
-            this.Session_Order.ReadOnly = true;
-            this.Session_Order.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Session_Order.Width = 70;
-            // 
-            // Khoa
-            // 
-            this.Khoa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Khoa.Frozen = true;
-            this.Khoa.HeaderText = "Khóa";
-            this.Khoa.MinimumWidth = 6;
-            this.Khoa.Name = "Khoa";
-            // 
-            // Ky
-            // 
-            this.Ky.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Ky.Frozen = true;
-            this.Ky.HeaderText = "Kỳ";
-            this.Ky.MinimumWidth = 6;
-            this.Ky.Name = "Ky";
-            this.Ky.Width = 50;
-            // 
-            // Session_MeetingDate
-            // 
-            this.Session_MeetingDate.FillWeight = 80F;
-            this.Session_MeetingDate.HeaderText = "Ngày họp";
-            this.Session_MeetingDate.MinimumWidth = 6;
-            this.Session_MeetingDate.Name = "Session_MeetingDate";
-            this.Session_MeetingDate.ReadOnly = true;
-            this.Session_MeetingDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Session_Meeting
-            // 
-            this.Session_Meeting.FillWeight = 80F;
-            this.Session_Meeting.HeaderText = "Buổi họp";
-            this.Session_Meeting.MinimumWidth = 6;
-            this.Session_Meeting.Name = "Session_Meeting";
-            this.Session_Meeting.ReadOnly = true;
-            this.Session_Meeting.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Session_Group
-            // 
-            this.Session_Group.FillWeight = 80F;
-            this.Session_Group.HeaderText = "Tổ";
-            this.Session_Group.MinimumWidth = 6;
-            this.Session_Group.Name = "Session_Group";
-            this.Session_Group.ReadOnly = true;
-            this.Session_Group.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Session_Number
-            // 
-            this.Session_Number.FillWeight = 80F;
-            this.Session_Number.HeaderText = "Mã Phiên";
-            this.Session_Number.MinimumWidth = 6;
-            this.Session_Number.Name = "Session_Number";
-            this.Session_Number.ReadOnly = true;
-            this.Session_Number.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Session_Activity
-            // 
-            this.Session_Activity.HeaderText = "Hoạt động";
-            this.Session_Activity.MinimumWidth = 6;
-            this.Session_Activity.Name = "Session_Activity";
-            this.Session_Activity.ReadOnly = true;
-            this.Session_Activity.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // SessionList
             // 
