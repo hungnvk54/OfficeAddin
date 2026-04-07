@@ -25,6 +25,8 @@ namespace BocBang
             Globals.ThisAddIn.Application.DocumentBeforeSave += Application_DocumentBeforeSave;
             Globals.ThisAddIn.Application.WindowActivate += Application_WindowActivate;
             ApplicationInitFormData();
+
+            ConfigureTlsVersion();
         }
 
         private void ActiveControl()
@@ -118,7 +120,13 @@ namespace BocBang
             mExportForm = new ExportForm();
         }
 
-        private void Aplication_CreateDefault()
+        void ConfigureTlsVersion()
+        {
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12 | System.Net.SecurityProtocolType.Tls11;
+         }
+
+
+    private void Aplication_CreateDefault()
         {
             //Create new document if there are now documents at this time
             if (Globals.ThisAddIn.Application.Documents.Count <= 0 )

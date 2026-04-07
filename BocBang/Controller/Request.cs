@@ -47,6 +47,12 @@ namespace BocBang
                 ServicePointManager.CertificatePolicy = new MyPolicy();
             }
 
+            if (request is HttpWebRequest httpRequest)
+            {
+                httpRequest.UserAgent = "BocBangAgent/1.0";
+            }
+
+
             return request;
         }
 
